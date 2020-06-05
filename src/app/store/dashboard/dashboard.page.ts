@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../services/dashboard.service';
 import { StoreOrder } from '../models/store.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,8 @@ import { StoreOrder } from '../models/store.model';
 export class DashboardPage implements OnInit {
 
   public currentOrders: StoreOrder[] = [];
-  constructor(private _dashboardService: DashboardService) { }
+  constructor(private _dashboardService: DashboardService,
+    private _router: Router) { }
 
   ngOnInit() {
     this.getDashBoardDetails();
@@ -21,6 +23,15 @@ export class DashboardPage implements OnInit {
       this.currentOrders = res;
       console.log('resss ', res);
     });
+  }
+
+  viewOrder(id: string) {
+    console.log('aaa');
+    this._router.navigate(['/order']);
+  }
+
+  viewOrder1() {
+    console.log('abcccc');
   }
 
 }

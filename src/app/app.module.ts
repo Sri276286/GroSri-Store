@@ -9,15 +9,17 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { TabsComponent } from './tabs/tabs.page';
+import { StoreModule } from './store/store.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent,
-    TabsComponent],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule,
     IonicModule.forRoot(),
     HttpClientModule,
+    FormsModule,
+    StoreModule,
     AppRoutingModule],
   providers: [
     StatusBar,

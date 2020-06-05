@@ -21,7 +21,7 @@
             >
           </ion-col>
           <ion-col>
-            <ion-button fill="outline" size="small">View Order</ion-button>
+            <ion-button fill="outline" size="small" [routerLink]="['/order', order.id]">View Order</ion-button>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -62,3 +62,4 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
+

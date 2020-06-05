@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { DashboardPage } from './store/dashboard/dashboard.page';
+import { OrdersPage } from './store/orders/orders.page';
 
 const routes: Routes = [
   {
     path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardPageModule)
+    component: DashboardPage
   },
   {
-    path: 'orders',
-    loadChildren: () => import('./orders/orders.module').then(m => m.OrdersPageModule)
+    path: 'order/:id',
+    component: OrdersPage
   },
   {
     path: '',
