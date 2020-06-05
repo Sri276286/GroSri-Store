@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>
+      Current Orders
+    </ion-label>
+  </ion-item>
+  <ion-card *ngFor="let order of currentOrders">
+    <ion-card-content>
+      <ion-card-title color="primary"><ion-chip color="primary">New</ion-chip></ion-card-title>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <span style="font-weight: 600; font-size: 18px;"
+              >#{{order.id}}</span
+            >
+          </ion-col>
+          <ion-col>
+            <ion-button fill="outline" size="small">View Order</ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <span class="span-content">
+              {{order.totalNumOfProducts == '1' ? '1 item':
+              order.totalNumOfProducts + ' items'}}
+            </span>
+          </ion-col>
+          <ion-col>
+            <span class="span-content">
+              Rs.{{order.billTotal}}
+            </span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <span class="span-content">
+              {{order.customer.name}}
+            </span>
+          </ion-col>
+          <ion-col>
+            <span class="span-content">
+              {{order.customer.mobileNumber}}
+            </span>
+          </ion-col>
+        </ion-row>
+        <hr />
+        <ion-row>
+          <ion-col>
+            <ion-button color="success">Accept</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="danger">Reject</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

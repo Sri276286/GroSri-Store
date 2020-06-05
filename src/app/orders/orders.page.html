@@ -1,0 +1,317 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>orders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="accordion">
+    <div class="card" catergory_card>
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+            aria-controls="collapseOne">
+            Rice & Grains
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+          <div class="card" style="padding: 5px; margin-bottom: 10px;">
+            <div style="display: flex;">
+              <h6>Product Name with Brand Name</h6>
+              <div style=" top:0; right:0; padding:10px 10px; position: absolute;">
+                <button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top"
+                  title="Tooltip on top">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div style="display: flex; font-size: small; ">
+              <button *ngIf=isActive type="button" class=" equal_width_q btn btn-outline-success btn-sm">
+                Grams <span style="font-size: 75%; text-align: center;" (click)="setEdit()">100</span>
+              </button>
+              <input *ngIf=!isActive type="text" class=" equal_width_q text_edit_input" placeholder="Grams" />
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Rs <span style="font-size: 75%; text-align: center;">34.00</span>
+  
+              </button>
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Qantity <span style="font-size: 75%; text-align: center;">3</span>
+  
+              </button>
+  
+            </div>
+          </div>
+  
+  
+          <div class="card" style="padding: 5px; margin-bottom: 10px;">
+            <div style="display: flex;">
+              <h6>Product Name with Brand Name</h6>
+              <div style=" top:0; right:0; padding:10px 10px; position: absolute;">
+                <button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top"
+                  title="Tooltip on top">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div style="display: flex; font-size: small; ">
+              <ng-container *ngIf="isActive ; then loggedIn; else loggedOut">
+              </ng-container>
+              <ng-template #loggedIn>
+              <button  type="button" class=" equal_width_q btn btn-outline-success btn-sm">
+                Grams <span style="font-size: 75%; text-align: center;" (click)="setEdit()">100</span>
+              </button>
+            </ng-template>
+            <ng-template #loggedOut>
+              <input *ngIf=!isActive type="text" class=" equal_width_q text_edit_input" placeholder="Grams" />
+            </ng-template>
+          
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Rs <span style="font-size: 75%; text-align: center;">34.00</span>
+  
+              </button>
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Qantity <span style="font-size: 75%; text-align: center;">3</span>
+  
+              </button>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+            aria-controls="collapseTwo">
+            Dals & pepper
+          </button>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+          <div class="card" style="padding: 5px; margin-bottom: 10px;">
+            <div style="display: flex;">
+              <h6>Product Name with Brand Name</h6>
+              <div style=" top:0; right:0; padding:10px 10px; position: absolute;">
+                <button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top"
+                  title="Tooltip on top">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div style="display: flex; font-size: small; ">
+              <button *ngIf=isActive type="button" class=" equal_width_q btn btn-outline-success btn-sm">
+                Grams <span style="font-size: 75%; text-align: center;" (click)="setEdit()">100</span>
+              </button>
+              <input *ngIf=!isActive type="text" class=" equal_width_q text_edit_input" placeholder="Grams" />
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Rs <span style="font-size: 75%; text-align: center;">34.00</span>
+  
+              </button>
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Qantity <span style="font-size: 75%; text-align: center;">3</span>
+  
+              </button>
+  
+            </div>
+          </div>
+  
+  
+          <div class="card" style="padding: 5px; margin-bottom: 10px;">
+            <div style="display: flex;">
+              <h6>Product Name with Brand Name</h6>
+              <div style=" top:0; right:0; padding:10px 10px; position: absolute;">
+                <button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top"
+                  title="Tooltip on top">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div style="display: flex; font-size: small; ">
+              <button *ngIf=isActive type="button" class=" equal_width_q btn btn-outline-success btn-sm">
+                Grams <span style="font-size: 75%; text-align: center;" (click)="setEdit()">100</span>
+              </button>
+              <input *ngIf=!isActive type="text" class=" equal_width_q text_edit_input" placeholder="Grams" />
+  
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Rs <span style="font-size: 75%; text-align: center;">34.00</span>
+  
+              </button>
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Qantity <span style="font-size: 75%; text-align: center;">3</span>
+  
+              </button>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+            aria-controls="collapseThree">
+            Oil & Tea
+          </button>
+        </h5>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div class="card-body">
+          <div class="card" style="padding: 5px; margin-bottom: 10px;">
+            <div style="display: flex;">
+              <h6>Product Name with Brand Name</h6>
+              <div style=" top:0; right:0; padding:10px 10px; position: absolute;">
+                <button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top"
+                  title="Tooltip on top">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div style="display: flex; font-size: small; ">
+              <button *ngIf=isActive type="button" class=" equal_width_q btn btn-outline-success btn-sm">
+                Grams <span style="font-size: 75%; text-align: center;" (click)="setEdit()">100</span>
+              </button>
+              <input *ngIf=!isActive type="text" class=" equal_width_q text_edit_input" placeholder="Grams" />
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Rs <span style="font-size: 75%; text-align: center;">34.00</span>
+  
+              </button>
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Qantity <span style="font-size: 75%; text-align: center;">3</span>
+  
+              </button>
+  
+            </div>
+          </div>
+  
+  
+          <div class="card" style="padding: 5px; margin-bottom: 10px;">
+            <div style="display: flex;">
+              <h6>Product Name with Brand Name</h6>
+              <div style=" top:0; right:0; padding:10px 10px; position: absolute;">
+                <button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top"
+                  title="Tooltip on top">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div style="display: flex; font-size: small; ">
+              <button *ngIf=isActive type="button" class=" equal_width_q btn btn-outline-success btn-sm">
+                Grams <span style="font-size: 75%; text-align: center;" (click)="setEdit()">100</span>
+              </button>
+              <input *ngIf=!isActive type="text" class=" equal_width_q text_edit_input" placeholder="Grams" />
+  
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Rs <span style="font-size: 75%; text-align: center;">34.00</span>
+  
+              </button>
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Qantity <span style="font-size: 75%; text-align: center;">3</span>
+  
+              </button>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingFour">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
+            aria-controls="collapseFour">
+            Snacks
+          </button>
+        </h5>
+      </div>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+        <div class="card-body">
+          <div class="card" style="padding: 5px; margin-bottom: 10px;">
+            <div style="display: flex;">
+              <h6>Product Name with Brand Name</h6>
+              <div style=" top:0; right:0; padding:10px 10px; position: absolute;">
+                <button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top"
+                  title="Tooltip on top">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div style="display: flex; font-size: small; ">
+              <button *ngIf=isActive type="button" class=" equal_width_q btn btn-outline-success btn-sm">
+                Grams <span style="font-size: 75%; text-align: center;" (click)="setEdit()">100</span>
+              </button>
+              <input *ngIf=!isActive type="text" class=" equal_width_q text_edit_input" placeholder="Grams" />
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Rs <span style="font-size: 75%; text-align: center;">34.00</span>
+  
+              </button>
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Qantity <span style="font-size: 75%; text-align: center;">3</span>
+  
+              </button>
+  
+            </div>
+          </div>
+  
+  
+          <div class="card" style="padding: 5px; margin-bottom: 10px;">
+            <div style="display: flex;">
+              <h6>Product Name with Brand Name</h6>
+              <div style=" top:0; right:0; padding:10px 10px; position: absolute;">
+                <button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top"
+                  title="Tooltip on top">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div style="display: flex; font-size: small; ">
+              <button *ngIf=isActive type="button" class=" equal_width_q btn btn-outline-success btn-sm">
+                Grams <span style="font-size: 75%; text-align: center;" (click)="setEdit()">100</span>
+              </button>
+              <input *ngIf=!isActive type="text" class=" equal_width_q text_edit_input" placeholder="Grams" />
+  
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Rs <span style="font-size: 75%; text-align: center;">34.00</span>
+  
+              </button>
+              <button type="button" class="equal_width_q btn btn-outline-success btn-sm">
+                Qantity <span style="font-size: 75%; text-align: center;">3</span>
+  
+              </button>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer id="footer-checkout" class="footer-checkout" style="border-top:1px solid #777">
+    <div class="footer-flex-container-checkout">
+      <div class="flex-item-checkout-button">
+        <span> Rs 2261 </span>
+        <!-- <span style="color: rgb(132, 194, 37);">Saved Rs 331.5</span> -->
+  
+      </div>
+  
+      <div class="flex-item-checkout-button">
+        <span>Reject</span>
+  
+  
+      </div>
+  
+      <div class="flex-item-checkout-button">
+        <span>Accept</span>
+  
+  
+      </div>
+    </div>
+  
+  </footer>
+  
+</ion-content>
