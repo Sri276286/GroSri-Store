@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class CommonService {
 
     placedOrders = [];
+    pastOrders = [];
 
     getOrderedProductsById(id: string) {
         console.log('placed orders ', this.placedOrders);

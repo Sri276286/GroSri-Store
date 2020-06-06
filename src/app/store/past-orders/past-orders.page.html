@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Past Orders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>
+      Past Orders
+    </ion-label>
+  </ion-item>
+  <ion-card *ngFor="let order of pastOrders">
+    <ion-card-content>
+      <ion-card-title color="primary"
+        ><ion-chip color="primary">Delivered</ion-chip></ion-card-title
+      >
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <span style="font-weight: 600; font-size: 18px;"
+              >#{{order.id}}</span
+            >
+          </ion-col>
+          <ion-col>
+            <ion-button
+              fill="outline"
+              size="small"
+              [routerLink]="['/order', order.id]"
+              >View Order</ion-button
+            >
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <span class="span-content">
+              {{order.totalNumOfProducts == '1' ? '1 item':
+              order.totalNumOfProducts + ' items'}}
+            </span>
+          </ion-col>
+          <ion-col>
+            <span class="span-content">
+              Rs.{{order.billTotal}}
+            </span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <span class="span-content">
+              {{order.customer.name}}
+            </span>
+          </ion-col>
+          <ion-col>
+            <span class="span-content">
+              {{order.customer.mobileNumber}}
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

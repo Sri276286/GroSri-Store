@@ -33,7 +33,8 @@ export class AppComponent {
     this._router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        if (event.url && event.url.indexOf('order') !== -1) {
+        const validate = this.validateURL(event);
+        if (validate) {
           this.hideTabs();
         } else {
           this.showTabs();
@@ -48,5 +49,11 @@ export class AppComponent {
   private showTabs() {
     const tabBar = document.getElementById('myTabBar');
     if (tabBar.style.display !== 'flex') tabBar.style.display = 'flex';
+  }
+
+  private validateURL(event: NavigationEnd) {
+    return event.url && (event.url.indexOf('order') !== -1
+      || event.url.indexOf('login') !== -1
+      || event.url.indexOf('register') !== -1);
   }
 }

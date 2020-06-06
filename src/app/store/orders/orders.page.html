@@ -24,8 +24,21 @@
                 <span class="span-content">{{product.brandName}}</span>
               </ion-col>
             </ion-row>
+            <br>
             <ion-row>
-              <span class="span-content">{{product.weight}}{{product.unit}}</span> * <span class="span-content">{{product.quantity}}</span>
+              <ion-col>
+                <div style="display: flex;">
+                  <span class="span-weight"
+                    >{{product.weight}}{{product.unit}}</span
+                  >
+                  <span class="span-quantity">{{product.quantity}}</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <ion-icon name="create" size="large" (click)="editProduct(product)"></ion-icon>
+                <ion-icon name="checkmark-circle-outline" size="large" *ngIf="!selected" (click)="onProductSelect()"></ion-icon>
+                <ion-icon name="checkmark-circle" size="large" *ngIf="selected"></ion-icon>
+              </ion-col>
             </ion-row>
           </ion-col>
         </ion-row>

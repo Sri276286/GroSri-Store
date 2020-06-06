@@ -14,10 +14,6 @@ export class DashboardService {
         private _commonService: CommonService) {
     }
 
-    /**
-     * Get stores recent order and processed order list based on area or pincode
-     * @param locationKey
-     */
     getCurrentOrders() {
         return this._httpClient.get<OrderResponse>(ApiConfig.storeDashboardURL)
             .pipe(map((res: OrderResponse) => {
@@ -31,7 +27,24 @@ export class DashboardService {
             }));
     }
 
+    getPastOrders() {
+        return this._httpClient.get<OrderResponse>(ApiConfig.storeDashboardURL)
+            .pipe(map((res: OrderResponse) => {
+                if (res && res.orders && res.orders.length) {
+                    const orders = this.mapPastOrders(res.orders);
+                    this._commonService.pastOrders = orders;
+                    return orders;
+                } else {
+                    return [];
+                }
+            }));
+    }
+
     private mapCurrentOrders(orders: StoreOrder[]) {
         return orders.filter(order => order.orderStatus.toLowerCase() === 'placed');
+    }
+
+    private mapPastOrders(orders: StoreOrder[]) {
+        return orders.filter(order => order.orderStatus.toLowerCase() !== 'placed');
     }
 }

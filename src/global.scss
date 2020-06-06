@@ -35,5 +35,10 @@
   
   
   /* Importing Bootstrap SCSS file. */
-  @import '~bootstrap/scss/bootstrap';
+  // @import '~bootstrap/scss/bootstrap';
+
+  .modal-grosri {
+    --height: 50%;
+    padding: 25px;
+  }
   

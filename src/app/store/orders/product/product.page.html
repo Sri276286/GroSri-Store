@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <div style="display: flex; justify-content: space-between;">
+      <ion-label class="ion-padding-start">{{product.productName}}</ion-label>
+      <ion-icon name="close" size="large" (click)="closeModal()"></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form
+    [formGroup]="productUpdateForm"
+    (ngSubmit)="productUpdateForm.valid && updateProduct(productUpdateForm.valid)"
+  >
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input
+              type="number"
+              placeholder="Weight"
+              formControlName="weight"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-select
+              interface="popover"
+              placeholder="Select Unit"
+              formControlName="unit"
+              value="kg"
+              class= "myCustomSelect"
+            >
+              <ion-select-option value="kg">Kg</ion-select-option>
+              <ion-select-option value="gram">Grams</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input
+              type="number"
+              placeholder="Price"
+              formControlName="price"
+            >
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <div class="ion-padding">
+        <ion-button type="submit" expand="block">Update</ion-button>
+      </div>
+    </ion-grid>
+  </form>
+</ion-content>
