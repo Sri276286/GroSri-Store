@@ -6,85 +6,105 @@
 <ion-content>
   <ion-list *ngFor="let product of products | keyvalue">
     <ion-item>
-      <ion-label>{{product.key}}</ion-label>
+      <ion-label
+        ><span style="font-weight: 600; font-size: 20px;">{{product.key}}</span>
+      </ion-label>
+      <ion-icon name="add" (click)="addItem1('category')"></ion-icon>
+      <ion-icon name="create"></ion-icon>
       <ion-icon
         name="arrow-down-circle"
-        size="large"
-        (click)="showItems = !showItems"
-        *ngIf="!showItems"
+        *ngIf="product.key"
       ></ion-icon>
       <ion-icon
         name="arrow-up-circle"
-        size="large"
-        (click)="showItems = !showItems"
-        *ngIf="showItems"
+        *ngIf="!product.key"
       ></ion-icon>
     </ion-item>
-    <ion-list *ngFor="let subprod of product.value | keyvalue">
-      <ion-item>
-        <ion-label>{{subprod.key}}</ion-label>
-        <ion-icon
-          name="arrow-down-circle"
-          size="large"
-          (click)="showItems = !showItems"
-          *ngIf="!showItems"
-        ></ion-icon>
-        <ion-icon
-          name="arrow-up-circle"
-          size="large"
-          (click)="showItems = !showItems"
-          *ngIf="showItems"
-        ></ion-icon>
-      </ion-item>
-      <ng-container *ngIf="showItems">
-        <ng-container *ngFor="let item of subprod.value">
-            <ng-container [ngTemplateOutlet]="menuItem"></ng-container>
-          </ng-container>
-      </ng-container>
-    </ion-list>
-    <ng-container [ngTemplateOutlet]="menuItem"></ng-container>
+    <ng-container *ngIf="!product.value.length">
+      <ion-list *ngFor="let subprod of product.value | keyvalue">
+        <ion-item>
+          <ion-label>{{subprod.key}}</ion-label>
+          <ion-icon name="add" (click)="addItem()"></ion-icon>
+          <ion-icon name="create"></ion-icon>
+          <ion-icon
+            name="arrow-down-circle"
+            *ngIf="subprod.key"
+          ></ion-icon>
+          <ion-icon
+            name="arrow-up-circle"
+            *ngIf="!subprod.key"
+          ></ion-icon>
+        </ion-item>
+        <ng-container *ngIf="subprod.key">
+          <ng-container
+            [ngTemplateOutlet]="menuList"
+            [ngTemplateOutletContext]="{items: subprod.value}"
+          ></ng-container>
+        </ng-container>
+      </ion-list>
+    </ng-container>
+    <ng-container *ngIf="product.value.length">
+      <ng-container
+        [ngTemplateOutlet]="menuList"
+        [ngTemplateOutletContext]="{items: product.value}"
+      ></ng-container>
+    </ng-container>
   </ion-list>
 </ion-content>
 
-<ng-template #menuItem>
+<ng-template #menuList let-items="items">
+  <ng-container *ngFor="let item of items">
+    <ng-container
+      [ngTemplateOutlet]="menuItem"
+      [ngTemplateOutletContext]="{item: item}"
+    ></ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #menuItem let-item="item">
   <ion-card>
     <ion-card-content>
       <ion-card-title color="primary"
-        ><ion-chip color="primary">New</ion-chip></ion-card-title
+        ><div style="display: flex; justify-content: space-between;">
+          <span>{{item.id}} - {{item.productName}}</span>
+          <span>{{item.brandName}}</span>
+        </div></ion-card-title
       >
       <ion-grid>
         <ion-row>
-          <ion-col>
-            <span style="font-weight: 600; font-size: 18px;">#123</span>
+          <ion-col size="3">
+            <ion-img [src]="item.productImgUrl"></ion-img>
           </ion-col>
-          <ion-col>
-            <ion-button fill="outline" size="small" [routerLink]="['/order', 1]"
-              >View Order</ion-button
-            >
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <span class="span-content">
-              1 item
-            </span>
-          </ion-col>
-          <ion-col>
-            <span class="span-content">
-              Rs.200
-            </span>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <span class="span-content">
-              Srikanth
-            </span>
-          </ion-col>
-          <ion-col>
-            <span class="span-content">
-              7299933974
-            </span>
+          <ion-col size="9">
+            <ion-row>
+              <ion-col size="4">
+                <span class="span-content">
+                  {{item.max_quantity}} item
+                </span>
+              </ion-col>
+              <ion-col size="8">
+                <span>
+                  MRP:Rs.
+                </span>
+                <span class="span-mrp">
+                  {{item.mrp}}
+                </span>
+                <span class="span-content">
+                  {{item.price}}
+                </span>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="8">
+                {{item.itemShortDescription}}
+              </ion-col>
+              <ion-col size="4">
+                <div style="display: flex; justify-content: space-between;">
+                  <ion-icon name="create" size="large" (click)="updateItem(item)"></ion-icon>
+                  <ion-icon name="trash" size="large" (click)="deleteItem(item)"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
           </ion-col>
         </ion-row>
       </ion-grid>

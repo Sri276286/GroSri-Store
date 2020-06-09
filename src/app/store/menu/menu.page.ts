@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuService } from '../services/menu.service';
+import { AlertController, ModalController } from '@ionic/angular';
+import { ItemModalPage } from './item/item.page';
 
 @Component({
     templateUrl: 'menu.page.html',
@@ -7,61 +9,98 @@ import { MenuService } from '../services/menu.service';
 })
 export class MenuPage {
     products;
-    public appPages: any;
     showItems = false;
-    // showLevel1 = null;
-    // showLevel2 = null;
-    // showLevel3 = null;
 
-    constructor(private _menuService: MenuService) {
+    constructor(private _menuService: MenuService,
+        private alertCtrl: AlertController,
+        private modalCtrl: ModalController) {
         this._menuService.getMenu().subscribe((resp: any) => {
             console.log(resp);
-            // this.appPages = resp;
             this.products = resp.productsByCategory;
         });
     }
 
-    // clearLevel() {
-    //     this.showLevel1 = null;
-    //     this.showLevel2 = null;
-    //     this.showLevel3 = null;
-    // }
+    addItem() {
+        this.presentModal();
+    }
 
-    // toggleLevel1(idx: string) {
-    //     if (this.isLevel1Shown(idx)) {
-    //         this.showLevel1 = null;
-    //     } else {
-    //         this.showLevel1 = idx;
-    //     }
-    // }
+    updateItem(item) {
 
-    // isLevel1Shown(idx: string) {
-    //     return this.showLevel1 === idx;
-    // }
+    }
 
-    // toggleLevel2(idx: string) {
-    //     if (this.isLevel2Shown(idx)) {
-    //         this.showLevel2 = null;
-    //     } else {
-    //         this.showLevel1 = idx;
-    //         this.showLevel2 = idx;
-    //     }
-    // }
+    deleteItem(item) {
+        this.presentAlert(item);
+    }
 
-    // isLevel2Shown(idx: string) {
-    //     return this.showLevel2 === idx;
-    // }
+    addItem1(type: string) {
+        this.presentAlertPrompt();
+    }
 
-    // toggleLevel3(idx: string) {
-    //     if (this.isLevel3Shown(idx)) {
-    //         this.showLevel3 = null;
-    //     } else {
-    //         this.showLevel2 = idx;
-    //         this.showLevel3 = idx;
-    //     }
-    // }
+    async presentModal(item?: any) {
+        const modal = await this.modalCtrl.create({
+            component: ItemModalPage,
+            componentProps: {
+                'item': item
+            }
+        });
+        return await modal.present();
+    }
 
-    // isLevel3Shown(idx: string) {
-    //     return this.showLevel3 === idx;
-    //   }
+    async presentAlert(item) {
+        const alert = await this.alertCtrl.create({
+            cssClass: 'my-custom-class',
+            header: `Remove ${item.productName}`,
+            message: `Do you want to remove ${item.productName}?`,
+            buttons: [
+                {
+                    text: 'No',
+                    cssClass: 'secondary',
+                    handler: (blah) => {
+                        console.log('Confirm Cancel: blah');
+                    }
+                }, {
+                    text: 'Yes',
+                    handler: () => {
+                        console.log('Confirm Okay');
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
+    }
+
+    async presentAlertPrompt() {
+        const alert = await this.alertCtrl.create({
+            header: 'Prompt!',
+            inputs: [
+                {
+                    name: 'name2',
+                    type: 'text',
+                    id: 'name2-id',
+                    value: 'hello',
+                    placeholder: 'Placeholder 2'
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: () => {
+                        console.log('Confirm Cancel');
+                    }
+                }, {
+                    text: 'Ok',
+                    handler: () => {
+                        console.log('Confirm Ok');
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
+    }
+
+
 }
