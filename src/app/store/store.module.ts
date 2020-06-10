@@ -10,6 +10,7 @@ import { LoginPage } from './login/login.page';
 import { ProductModalPage } from './orders/product/product.page';
 import { PastOrdersPage } from './past-orders/past-orders.page';
 import { MenuPage } from './menu/menu.page';
+import { BusinessPage } from './business/business.page';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { MenuPage } from './menu/menu.page';
         SignupPage,
         ProductModalPage,
         PastOrdersPage,
-        MenuPage
+        MenuPage,
+        BusinessPage
     ]
 })
 export class StoreModule {

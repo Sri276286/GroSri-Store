@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Business</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-title>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            Your Store Name
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <span class="span-content">Place</span> |
+            <span class="span-content">2 outlets</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-title>
+    <ion-card-content>
+      <div class="container">
+        <div class="scroll" scrollX="true">
+          <ion-grid>
+            <ion-row>
+              <ion-col *ngFor="let revenue of revenues">
+                <div style="display: flex; flex-direction: column;">
+                  <span>{{revenue.day_type | titlecase}}</span>
+                  <span>Rs.{{revenue.amount}}</span>
+                  <span>{{revenue.no_of_orders}} orders</span>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

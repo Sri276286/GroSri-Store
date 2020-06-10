@@ -6,6 +6,7 @@ import { LoginPage } from './store/login/login.page';
 import { SignupPage } from './store/signup/signup.page';
 import { PastOrdersPage } from './store/past-orders/past-orders.page';
 import { MenuPage } from './store/menu/menu.page';
+import { BusinessPage } from './store/business/business.page';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'order/:id',
     component: OrdersPage
+  },
+  {
+    path: 'business',
+    component: BusinessPage
   },
   {
     path: '',

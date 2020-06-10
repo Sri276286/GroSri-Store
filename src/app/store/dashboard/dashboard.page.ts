@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../services/dashboard.service';
 import { StoreOrder } from '../models/store.model';
-import { Router } from '@angular/router';
+import { ToastController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,10 +12,14 @@ export class DashboardPage implements OnInit {
 
   public currentOrders: StoreOrder[] = [];
   constructor(private _dashboardService: DashboardService,
-    private _router: Router) { }
+    private toastCtrl: ToastController,
+    private menuCtrl: MenuController) { }
 
   ngOnInit() {
     this.getDashBoardDetails();
+    setTimeout(() => {
+      this.presentToastWithOptions();
+    }, 1000);
   }
 
   private getDashBoardDetails() {
@@ -25,13 +29,32 @@ export class DashboardPage implements OnInit {
     });
   }
 
-  viewOrder(id: string) {
-    console.log('aaa');
-    this._router.navigate(['/order']);
+  openMenu() {
+    this.openMenuItems();
   }
 
-  viewOrder1() {
-    console.log('abcccc');
+  async openMenuItems() {
+    await this.menuCtrl.open();
   }
+
+  async presentToastWithOptions() {
+    const toast = await this.toastCtrl.create({
+      header: 'New Order',
+      message: '22 items | Rs.1200',
+      position: 'top',
+      color: 'secondary',
+      buttons: [
+        {
+          side: 'end',
+          icon: 'refresh',
+          handler: () => {
+            this.getDashBoardDetails();
+          }
+        }
+      ]
+    });
+    toast.present();
+  }
+
 
 }
