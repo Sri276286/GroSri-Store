@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MenuService } from '../services/menu.service';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ItemModalPage } from './item/item.page';
+import { ItemDialogPage } from './item-dialog/item-dialog.page';
 
 @Component({
     templateUrl: 'menu.page.html',
@@ -10,38 +11,108 @@ import { ItemModalPage } from './item/item.page';
 export class MenuPage {
     products;
     showItems = false;
+    canAddCategory = false;
+    newCategory = '';
 
     constructor(private _menuService: MenuService,
         private alertCtrl: AlertController,
         private modalCtrl: ModalController) {
+        this.getMenuItems();
+        this._menuService.addSubCategory$.subscribe((isPresent) => {
+            if (isPresent)
+                this.getMenuItems();
+        });
+        this._menuService.addProduct$.subscribe((isPresent) => {
+            if (isPresent)
+                this.presentProductModal();
+        });
+    }
+
+    private getMenuItems() {
         this._menuService.getMenu().subscribe((resp: any) => {
             console.log(resp);
             this.products = resp.productsByCategory;
         });
     }
 
+    toggleItems(product) {
+
+    }
+
+    canAddCateg() {
+        this.canAddCategory = !this.canAddCategory;
+    }
+
+    /**
+     * Add category
+     */
+    addCategory() {
+        console.log('cat val ', this.newCategory);
+        this._menuService.addCategory(this.newCategory).subscribe(() => {
+            this.getMenuItems();
+            this.newCategory = '';
+            this.canAddCategory = false;
+        }, () => {
+            this.newCategory = '';
+            this.canAddCategory = false;
+        });
+    }
+
+    /**
+     * Modal to add a subcategory or select to add a product
+     * @param type
+     */
+    addItemOrSubcateg() {
+        this.presentAddProductModal();
+    }
+
+    /**
+     * Edit category name Alert
+     */
+    editCategoryAlert(type: string, catName: string) {
+        this.presentCategoryAlert(type, catName);
+    }
+
+    /**
+     * Edit Category name
+     */
+    editCategory(type: string, name: string) {
+        if (type === 'category') {
+            this._menuService.updateCategory(name).subscribe();
+        } else {
+            this._menuService.updateSubCategory(name).subscribe();
+        }
+    }
+
+    /**
+     * Modal to add a product
+     */
     addItem() {
-        this.presentModal();
+        this.presentProductModal();
     }
 
     updateItem(item) {
-
+        this.presentProductModal(item);
     }
 
     deleteItem(item) {
         this.presentAlert(item);
     }
 
-    addItem1(type: string) {
-        this.presentAlertPrompt();
-    }
-
-    async presentModal(item?: any) {
+    async presentProductModal(item?: any) {
         const modal = await this.modalCtrl.create({
             component: ItemModalPage,
             componentProps: {
                 'item': item
             }
+        });
+        return await modal.present();
+    }
+
+    async presentAddProductModal() {
+        const modal = await this.modalCtrl.create({
+            component: ItemDialogPage,
+            cssClass: 'modal-grosri'
         });
         return await modal.present();
     }
@@ -70,30 +141,30 @@ export class MenuPage {
         await alert.present();
     }
 
-    async presentAlertPrompt() {
+    async presentCategoryAlert(type: string, catValue: string) {
         const alert = await this.alertCtrl.create({
-            header: 'Prompt!',
+            cssClass: 'alert-menu',
+            header: 'Update Name',
             inputs: [
                 {
-                    name: 'name2',
+                    name: 'categoryName',
                     type: 'text',
-                    id: 'name2-id',
-                    value: 'hello',
-                    placeholder: 'Placeholder 2'
+                    id: 'categoryName',
+                    value: catValue
                 }
             ],
             buttons: [
                 {
                     text: 'Cancel',
-                    role: 'cancel',
                     cssClass: 'secondary',
                     handler: () => {
                         console.log('Confirm Cancel');
                     }
                 }, {
-                    text: 'Ok',
-                    handler: () => {
-                        console.log('Confirm Ok');
+                    text: 'Update',
+                    handler: (alertData) => {
+                        console.log('Add Sub category ', alertData.categoryName);
+                        this.editCategory(type, alertData.categoryName);
                     }
                 }
             ]

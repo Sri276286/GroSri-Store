@@ -11,6 +11,8 @@ import { ProductModalPage } from './orders/product/product.page';
 import { PastOrdersPage } from './past-orders/past-orders.page';
 import { MenuPage } from './menu/menu.page';
 import { BusinessPage } from './business/business.page';
+import { ItemModalPage } from './menu/item/item.page';
+import { ItemDialogPage } from './menu/item-dialog/item-dialog.page';
 
 @NgModule({
     imports: [
@@ -28,7 +30,9 @@ import { BusinessPage } from './business/business.page';
         ProductModalPage,
         PastOrdersPage,
         MenuPage,
-        BusinessPage
+        BusinessPage,
+        ItemModalPage,
+        ItemDialogPage
     ]
 })
 export class StoreModule {

@@ -4,38 +4,60 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-button fill="outline" (click)="canAddCateg()">Add Category</ion-button>
+  <ion-item *ngIf="canAddCategory">
+    <ion-input
+      placeholder="Enter a category"
+      [(ngModel)]="newCategory"
+    ></ion-input>
+    <ion-icon name="add" (click)="addCategory()"></ion-icon>
+  </ion-item>
   <ion-list *ngFor="let product of products | keyvalue">
     <ion-item>
       <ion-label
         ><span style="font-weight: 600; font-size: 20px;">{{product.key}}</span>
       </ion-label>
-      <ion-icon name="add" (click)="addItem1('category')"></ion-icon>
-      <ion-icon name="create"></ion-icon>
+      <ion-icon name="add" (click)="addItemOrSubcateg()"></ion-icon>
+      <ion-icon
+        name="create"
+        (click)="editCategoryAlert('category', product.key)"
+      ></ion-icon>
       <ion-icon
         name="arrow-down-circle"
-        *ngIf="product.key"
+        size="small"
+        (click)="product.expand = true"
+        *ngIf="!product.expand"
       ></ion-icon>
       <ion-icon
         name="arrow-up-circle"
-        *ngIf="!product.key"
+        size="small"
+        (click)="product.expand = false"
+        *ngIf="product.expand"
       ></ion-icon>
     </ion-item>
-    <ng-container *ngIf="!product.value.length">
+    <ng-container *ngIf="!product.value.length && !product.expand">
       <ion-list *ngFor="let subprod of product.value | keyvalue">
         <ion-item>
           <ion-label>{{subprod.key}}</ion-label>
           <ion-icon name="add" (click)="addItem()"></ion-icon>
-          <ion-icon name="create"></ion-icon>
+          <ion-icon
+            name="create"
+            (click)="editCategoryAlert('subcategory', subprod.key)"
+          ></ion-icon>
           <ion-icon
             name="arrow-down-circle"
-            *ngIf="subprod.key"
+            size="small"
+            (click)="subprod.expand = true"
+            *ngIf="!subprod.expand"
           ></ion-icon>
           <ion-icon
             name="arrow-up-circle"
-            *ngIf="!subprod.key"
+            size="small"
+            (click)="subprod.expand = false"
+            *ngIf="subprod.expand"
           ></ion-icon>
         </ion-item>
-        <ng-container *ngIf="subprod.key">
+        <ng-container *ngIf="!subprod.expand">
           <ng-container
             [ngTemplateOutlet]="menuList"
             [ngTemplateOutletContext]="{items: subprod.value}"
@@ -43,7 +65,7 @@
         </ng-container>
       </ion-list>
     </ng-container>
-    <ng-container *ngIf="product.value.length">
+    <ng-container *ngIf="product.value.length && !product.expand">
       <ng-container
         [ngTemplateOutlet]="menuList"
         [ngTemplateOutletContext]="{items: product.value}"
@@ -100,8 +122,16 @@
               </ion-col>
               <ion-col size="4">
                 <div style="display: flex; justify-content: space-between;">
-                  <ion-icon name="create" size="large" (click)="updateItem(item)"></ion-icon>
-                  <ion-icon name="trash" size="large" (click)="deleteItem(item)"></ion-icon>
+                  <ion-icon
+                    name="create"
+                    size="large"
+                    (click)="updateItem(item)"
+                  ></ion-icon>
+                  <ion-icon
+                    name="trash"
+                    size="large"
+                    (click)="deleteItem(item)"
+                  ></ion-icon>
                 </div>
               </ion-col>
             </ion-row>

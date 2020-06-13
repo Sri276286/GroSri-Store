@@ -1,96 +1,130 @@
 <ion-header>
   <ion-toolbar color="primary">
     <div style="display: flex; justify-content: space-between;">
-      <ion-label class="ion-padding-start">Add Product</ion-label>
+      <ion-label class="ion-padding-start">{{item ? 'Update Product': 'Add Product'}}</ion-label>
       <ion-icon name="close" size="large" (click)="closeModal()"></ion-icon>
     </div>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <form
-    [formGroup]="productUpdateForm"
-    (ngSubmit)="productUpdateForm.valid && updateProduct(productUpdateForm.valid)"
+    [formGroup]="productForm"
+    (ngSubmit)="productForm.valid && addProduct()"
   >
+  <span style="color: red;" *ngIf="productForm.invalid">* Please fill all mandatory fields</span>
     <ion-grid>
       <ion-row>
-        <ion-col>
-          <ion-item>
-            <!-- <ion-label>
-                        Upload Image
-                    </ion-label> -->
-            <ion-button>
-              <input type="file" (change)="selectFile($event)" /><ion-icon
-                name="cloud-upload"
-              ></ion-icon
-            ></ion-button>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-input placeholder="Product Name"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-input placeholder="Brand Name"></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <ion-item>
-            <ion-input placeholder="Quantity"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
+        <ion-col size="6">
           <ion-item>
             <ion-input
-              type="number"
-              placeholder="Weight"
-              formControlName="weight"
+              placeholder="Product Name"
+              formControlName="productName"
             ></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col>
+        <ion-col size="6">
           <ion-item>
-            <ion-select
-              interface="popover"
-              placeholder="Select Unit"
-              formControlName="unit"
-              value="kg"
-              class="myCustomSelect"
-            >
-              <ion-select-option value="kg">Kg</ion-select-option>
-              <ion-select-option value="gram">Grams</ion-select-option>
-            </ion-select>
+            <ion-input
+              placeholder="Brand Name"
+              formControlName="brandName"
+            ></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-input placeholder="MRP"></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <ion-item>
-            <ion-input placeholder="Price"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-textarea placeholder="Description goes here..."></ion-textarea>
+            <ion-textarea
+              placeholder="Description goes here..."
+              formControlName="itemShortDescription"
+            ></ion-textarea>
           </ion-item>
         </ion-col>
       </ion-row>
+      <ion-button (click)="addWeight()">Add Weights</ion-button>
+      <div
+        formArrayName="weights"
+        *ngFor="let item of w.controls;let i = index;"
+      >
+        <div style="border: 1px solid grey;" [formGroupName]="i">
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <!-- <ion-label>
+                          Upload Image
+                      </ion-label> -->
+                <div>
+                  <label for="files" class="files-label">Select Image</label>
+                  <input
+                    id="files"
+                    style="visibility: hidden;"
+                    type="file"
+                    (change)="selectFile($event)"
+                    formControlName="imageUrl"
+                  />
+                </div>
+                <!-- <ion-button>
+                <input type="file" (change)="selectFile($event)" placeholder="Add Image"/><ion-icon
+                  name="cloud-upload"
+                ></ion-icon
+              ></ion-button> -->
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-input
+                  placeholder="Quantity"
+                  formControlName="available_quantity"
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-input
+                  type="number"
+                  placeholder="Weight"
+                  formControlName="weight"
+                  formControlName="weight"
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-select
+                  interface="popover"
+                  placeholder="Select Unit"
+                  formControlName="unit"
+                  value="kg"
+                  class="myCustomSelect"
+                  formControlName="unit"
+                >
+                  <ion-select-option value="kg">Kg</ion-select-option>
+                  <ion-select-option value="gram">Grams</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-input placeholder="MRP" formControlName="mrp"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-input
+                  placeholder="Price"
+                  formControlName="price"
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
       <div class="ion-padding">
-        <ion-button type="submit" expand="block">Add Product</ion-button>
+        <ion-button type="submit" expand="block">{{item ? 'Update Product': 'Add Product'}}</ion-button>
       </div>
     </ion-grid>
   </form>

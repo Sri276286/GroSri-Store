@@ -17,9 +17,9 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.getDashBoardDetails();
-    setTimeout(() => {
-      this.presentToastWithOptions();
-    }, 1000);
+    // setTimeout(() => {
+    //   this.presentToastWithOptions();
+    // }, 1000);
   }
 
   private getDashBoardDetails() {
