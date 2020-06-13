@@ -40,6 +40,13 @@ export class DashboardService {
             }));
     }
 
+    /**
+     * Update Order Status
+     */
+    updateOrderStatus() {
+
+    }
+
     private mapCurrentOrders(orders: StoreOrder[]) {
         return orders.filter(order => order.orderStatus.toLowerCase() === 'placed');
     }

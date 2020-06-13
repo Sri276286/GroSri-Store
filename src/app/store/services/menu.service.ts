@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 export class MenuService {
 
     menuURL: string = 'assets/mocks/menu.json';
+    outOfStockURL: string = 'assets/mocks/outOfStocks.json';
     addSubCategory$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     addProduct$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     constructor(private _http: HttpClient) {
@@ -17,6 +18,10 @@ export class MenuService {
 
     getMenu() {
         return this._http.get(this.menuURL);
+    }
+
+    getOutOfStocks() {
+        return this._http.get(this.outOfStockURL);
     }
 
     addCategory(category) {

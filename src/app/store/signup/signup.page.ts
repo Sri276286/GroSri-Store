@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonConstants } from '../constants/common.constants';
 import { ConfirmPasswordValidator } from '../services/confirm.password';
+import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'gro-store-signup',
@@ -11,7 +13,9 @@ import { ConfirmPasswordValidator } from '../services/confirm.password';
 export class SignupPage {
     registerForm: FormGroup;
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder,
+        private loginService: LoginService,
+        private _router: Router) {
         this.registerForm = this.fb.group({
             name: ["", [Validators.required, Validators.minLength(6)]],
             email: ["", [Validators.email]],
@@ -22,7 +26,18 @@ export class SignupPage {
         });
     }
 
+    /**
+     * Submit register form
+     * @param isValid
+     */
     onSubmit(isValid: boolean) {
-
+        console.log('is valid ', isValid);
+        console.log('form ', this.registerForm);
+        if (isValid) {
+            this.loginService.register(this.registerForm.value).subscribe(() => {
+                console.log('registered');
+                this._router.navigate(['/login']);
+            });
+        }
     }
 }

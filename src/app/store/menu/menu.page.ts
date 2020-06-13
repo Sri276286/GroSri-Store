@@ -3,6 +3,7 @@ import { MenuService } from '../services/menu.service';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ItemModalPage } from './item/item.page';
 import { ItemDialogPage } from './item-dialog/item-dialog.page';
+import { ItemWeightsPage } from './item-weights/item-weights.page';
 
 @Component({
     templateUrl: 'menu.page.html',
@@ -13,6 +14,8 @@ export class MenuPage {
     showItems = false;
     canAddCategory = false;
     newCategory = '';
+    showOutOfStockItems = false;
+    outOfStockProducts = [];
 
     constructor(private _menuService: MenuService,
         private alertCtrl: AlertController,
@@ -35,8 +38,28 @@ export class MenuPage {
         });
     }
 
-    toggleItems(product) {
+    /**
+     * Get Out of Stock Items
+     */
+    private getOutOfStockItems() {
+        this._menuService.getOutOfStocks().subscribe((resp: any) => {
+            this.outOfStockProducts = resp;
+        });
+    }
 
+    selectWeightsModal(item) {
+        this.presentWeightsModal(item);
+    }
+
+    menuSegmentChange(value) {
+        console.log('value ', value);
+        if (value.detail.value === 'out_of_stock') {
+            this.showOutOfStockItems = true;
+            this.getOutOfStockItems();
+        } else {
+            this.showOutOfStockItems = false;
+            this.getMenuItems();
+        }
     }
 
     canAddCateg() {
@@ -97,6 +120,17 @@ export class MenuPage {
 
     deleteItem(item) {
         this.presentAlert(item);
+    }
+
+    async presentWeightsModal(item?: any) {
+        const modal = await this.modalCtrl.create({
+            component: ItemWeightsPage,
+            cssClass: 'modal-grosri',
+            componentProps: {
+                'item': item
+            }
+        });
+        return await modal.present();
     }
 
     async presentProductModal(item?: any) {

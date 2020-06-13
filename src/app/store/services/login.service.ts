@@ -1,0 +1,24 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ApiConfig } from 'src/app/config/api.config';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class LoginService {
+
+    constructor(private _http: HttpClient) {
+
+    }
+
+    /**
+     * Register a store admin/manager
+     */
+    register(user) {
+        return this._http.post(ApiConfig.registerURL, user);
+    }
+
+    login(user) {
+        return this._http.post(ApiConfig.loginURL, user);
+    }
+}

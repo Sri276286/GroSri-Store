@@ -13,6 +13,7 @@ import { MenuPage } from './menu/menu.page';
 import { BusinessPage } from './business/business.page';
 import { ItemModalPage } from './menu/item/item.page';
 import { ItemDialogPage } from './menu/item-dialog/item-dialog.page';
+import { ItemWeightsPage } from './menu/item-weights/item-weights.page';
 
 @NgModule({
     imports: [
@@ -32,7 +33,8 @@ import { ItemDialogPage } from './menu/item-dialog/item-dialog.page';
         MenuPage,
         BusinessPage,
         ItemModalPage,
-        ItemDialogPage
+        ItemDialogPage,
+        ItemWeightsPage
     ]
 })
 export class StoreModule {

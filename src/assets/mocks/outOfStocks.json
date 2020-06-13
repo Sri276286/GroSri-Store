@@ -1,0 +1,108 @@
+[
+  {
+    "id": 2,
+    "storeId": 1,
+    "storeStoreName": "thirumalai store",
+    "productCategory": "Foodgrains, Oil and Masala",
+    "productSubCategory": "Rice Products",
+    "productSub2Category": null,
+    "productName": "Boiled Rice",
+    "productImgUrl": null,
+    "max_quantity": 3,
+    "available_quantity": 5,
+    "mrp": 100.0,
+    "price": 98.0,
+    "weight": 25.0,
+    "unit": "kg",
+    "quantity": 0,
+    "brandName": "GSM",
+    "itemShortDescription": "GSM - Boiled Rice",
+    "itemLongDescription": "GSM - Boiled Rice Chennai",
+    "storeInventoryProductUnit": [
+      {
+        "id": 3,
+        "storeInventoryProductId": 2,
+        "max_quantity": 3,
+        "available_quantity": 5,
+        "mrp": 100.0,
+        "price": 98.0,
+        "weight": 25.0,
+        "unit": "kg"
+      },
+      {
+        "id": 4,
+        "storeInventoryProductId": 2,
+        "max_quantity": 3,
+        "available_quantity": 5,
+        "mrp": 1000.0,
+        "price": 980.0,
+        "weight": 50.0,
+        "unit": "kg"
+      },
+      {
+        "id": 5,
+        "storeInventoryProductId": 2,
+        "max_quantity": 3,
+        "available_quantity": 5,
+        "mrp": 1500.0,
+        "price": 1480.0,
+        "weight": 100.0,
+        "unit": "kg"
+      }
+    ],
+    "storeInventoryProductUnitId": 3
+  },
+  {
+    "id": 3,
+    "storeId": 1,
+    "storeStoreName": "thirumalai store",
+    "productCategory": "Foodgrains, Oil and Masala",
+    "productSubCategory": "Rice Products",
+    "productSub2Category": null,
+    "productName": "Boiled Rice",
+    "productImgUrl": null,
+    "max_quantity": 3,
+    "available_quantity": 5,
+    "mrp": 100.0,
+    "price": 98.0,
+    "weight": 25.0,
+    "unit": "kg",
+    "quantity": 0,
+    "brandName": "GSM",
+    "itemShortDescription": "GSM - Boiled Rice",
+    "itemLongDescription": "GSM - Boiled Rice Chennai",
+    "storeInventoryProductUnit": [
+      {
+        "id": 6,
+        "storeInventoryProductId": 3,
+        "max_quantity": 3,
+        "available_quantity": 5,
+        "mrp": 100.0,
+        "price": 98.0,
+        "weight": 25.0,
+        "unit": "kg"
+      },
+      {
+        "id": 7,
+        "storeInventoryProductId": 3,
+        "max_quantity": 3,
+        "available_quantity": 5,
+        "mrp": 1000.0,
+        "price": 980.0,
+        "weight": 50.0,
+        "unit": "kg"
+      },
+      {
+        "id": 8,
+        "storeInventoryProductId": 3,
+        "max_quantity": 3,
+        "available_quantity": 5,
+        "mrp": 1500.0,
+        "price": 1480.0,
+        "weight": 100.0,
+        "unit": "kg"
+      }
+    ],
+    "storeInventoryProductUnitId": 6
+  }
+]

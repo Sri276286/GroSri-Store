@@ -79,7 +79,7 @@
         <hr />
         <ion-row>
           <ion-col>
-            <ion-button color="success">Accept</ion-button>
+            <ion-button color="success" (click)="updateOrderStatus(order.orderStatus)">Accept</ion-button>
           </ion-col>
           <ion-col>
             <ion-button color="danger">Reject</ion-button>

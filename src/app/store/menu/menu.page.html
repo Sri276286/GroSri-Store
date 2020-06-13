@@ -3,7 +3,17 @@
     <ion-title>Menu</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-toolbar>
+  <ion-segment
+    value="all"
+    color="primary"
+    (ionChange)="menuSegmentChange($event)"
+  >
+    <ion-segment-button value="all">All</ion-segment-button>
+    <ion-segment-button value="out_of_stock">Out of Stock</ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+<ion-content *ngIf="!showOutOfStockItems">
   <ion-button fill="outline" (click)="canAddCateg()">Add Category</ion-button>
   <ion-item *ngIf="canAddCategory">
     <ion-input
@@ -73,6 +83,14 @@
     </ng-container>
   </ion-list>
 </ion-content>
+<ion-content *ngIf="showOutOfStockItems">
+  <ng-container *ngFor="let item of outOfStockProducts">
+    <ng-container
+      [ngTemplateOutlet]="menuItem"
+      [ngTemplateOutletContext]="{item: item}"
+    ></ng-container>
+  </ng-container>
+</ion-content>
 
 <ng-template #menuList let-items="items">
   <ng-container *ngFor="let item of items">
@@ -98,11 +116,28 @@
             <ion-img [src]="item.productImgUrl"></ion-img>
           </ion-col>
           <ion-col size="9">
-            <ion-row>
-              <ion-col size="4">
-                <span class="span-content">
-                  {{item.max_quantity}} item
+            <ion-button
+              (click)="selectWeightsModal(item)"
+              *ngIf="item.storeInventoryProductUnit.length > 1"
+            >
+              <div style="padding-left: 1px;">
+                <span>
+                  {{item.weight}}{{item.unit}}
                 </span>
+                <span>
+                  MRP:Rs.
+                </span>
+                <span class="span-mrp">
+                  {{item.mrp}}
+                </span>
+                <span class="span-content">
+                  {{item.price}}
+                </span>
+              </div>
+            </ion-button>
+            <ion-row *ngIf="item.storeInventoryProductUnit.length === 1">
+              <ion-col>
+                {{item.weight}} {{item.unit}}
               </ion-col>
               <ion-col size="8">
                 <span>
@@ -113,6 +148,13 @@
                 </span>
                 <span class="span-content">
                   {{item.price}}
+                </span>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="4">
+                <span class="span-content">
+                  {{item.max_quantity}} items
                 </span>
               </ion-col>
             </ion-row>

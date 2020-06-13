@@ -14,8 +14,8 @@
             <ion-icon name="person-circle" slot="start"></ion-icon>
             <ion-input
               type="text"
-              placeholder="* Username"
-              formControlName="username"
+              placeholder="* Email"
+              formControlName="email"
             ></ion-input>
           </ion-item>
 
@@ -28,9 +28,8 @@
             ></ion-input>
           </ion-item>
         </div>
-
         <div class="ion-padding">
-          <ion-button type="submit" size="large" expand="block" disabled="!loginForm.valid"
+          <ion-button type="submit" size="large" expand="block" [disabled]="loginForm.invalid"
             >Login</ion-button
           >
         </div>

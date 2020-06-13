@@ -29,6 +29,13 @@ export class DashboardPage implements OnInit {
     });
   }
 
+  /**
+   * Update Order status from New -> Accepted -> Prepared -> Ready -> Delivered
+   */
+  updateOrderStatus() {
+
+  }
+
   openMenu() {
     this.openMenuItems();
   }
