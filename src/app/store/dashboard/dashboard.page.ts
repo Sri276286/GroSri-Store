@@ -32,8 +32,11 @@ export class DashboardPage implements OnInit {
   /**
    * Update Order status from New -> Accepted -> Prepared -> Ready -> Delivered
    */
-  updateOrderStatus() {
-
+  updateOrderStatus(order, reject?: boolean) {
+    console.log('order ', order);
+    this._dashboardService.updateOrderStatus(order.id, order.orderStatus, reject).subscribe(() => {
+      this.getDashBoardDetails();
+    });
   }
 
   openMenu() {

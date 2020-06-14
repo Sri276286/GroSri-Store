@@ -13,7 +13,7 @@
   <ion-card *ngFor="let order of pastOrders">
     <ion-card-content>
       <ion-card-title color="primary"
-        ><ion-chip color="primary">Delivered</ion-chip></ion-card-title
+        ><ion-chip color="primary">{{order.orderStatus | titlecase}}</ion-chip></ion-card-title
       >
       <ion-grid>
         <ion-row>

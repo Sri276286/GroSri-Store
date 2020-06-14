@@ -52,7 +52,7 @@ export class AppComponent {
   }
 
   private validateURL(event: NavigationEnd) {
-    return event.url && (event.url.indexOf('order') !== -1
+    return event.url && (event.url.indexOf('order/') !== -1
       || event.url.indexOf('login') !== -1
       || event.url.indexOf('register') !== -1);
   }

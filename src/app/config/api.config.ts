@@ -3,6 +3,8 @@ export class ApiConfig {
     static storeDashboardURL: string = `${ApiConfig.baseUrl}/orders/stores/1`; // GET
     static registerURL: string = `${ApiConfig.baseUrl}/auth/store/signup`; // POST
     static loginURL: string = `${ApiConfig.baseUrl}/auth/login`; // POST
-    static storeDetailsURL: string = `${ApiConfig.baseUrl}/stores/findStoreByStoreId`;
-    static adminStoresURL: string = `${ApiConfig.baseUrl}/stores/findStoreByAdminId`;
+    static storeDetailsURL: string = `${ApiConfig.baseUrl}/stores/findStoreByStoreId`; // GET
+    static adminStoresURL: string = `${ApiConfig.baseUrl}/stores/findStoreByAdminId`; // GET
+    static orderStatusURL: string = `${ApiConfig.baseUrl}/orders`;
+    static orderDetailsURL: string = `${ApiConfig.baseUrl}/orders`;
 }
