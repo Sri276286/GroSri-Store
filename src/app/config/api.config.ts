@@ -5,6 +5,8 @@ export class ApiConfig {
     static loginURL: string = `${ApiConfig.baseUrl}/auth/login`; // POST
     static storeDetailsURL: string = `${ApiConfig.baseUrl}/stores/findStoreByStoreId`; // GET
     static adminStoresURL: string = `${ApiConfig.baseUrl}/stores/findStoreByAdminId`; // GET
-    static orderStatusURL: string = `${ApiConfig.baseUrl}/orders`;
-    static orderDetailsURL: string = `${ApiConfig.baseUrl}/orders`;
+    static orderStatusURL: string = `${ApiConfig.baseUrl}/orders`; // PUT
+    static orderDetailsURL: string = `${ApiConfig.baseUrl}/orders`; // GET
+    static addProductURL: string = `${ApiConfig.baseUrl}/stores/create/product`; // POST
+    static storeMenuURL: string = `${ApiConfig.baseUrl}/stores/findProductsByStoreId/1`; // GET
 }

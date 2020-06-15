@@ -14,6 +14,8 @@ import { BusinessPage } from './business/business.page';
 import { ItemModalPage } from './menu/item/item.page';
 import { ItemDialogPage } from './menu/item-dialog/item-dialog.page';
 import { ItemWeightsPage } from './menu/item-weights/item-weights.page';
+import { ProductSearchPage } from './menu/product-search/product-search.component';
+import { ProductListPage } from './menu/product-list/product-list.page';
 
 @NgModule({
     imports: [
@@ -34,7 +36,9 @@ import { ItemWeightsPage } from './menu/item-weights/item-weights.page';
         BusinessPage,
         ItemModalPage,
         ItemDialogPage,
-        ItemWeightsPage
+        ItemWeightsPage,
+        ProductSearchPage,
+        ProductListPage
     ]
 })
 export class StoreModule {

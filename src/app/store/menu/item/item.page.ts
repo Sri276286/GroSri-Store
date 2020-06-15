@@ -23,7 +23,8 @@ export class ItemModalPage implements OnInit {
             productName: ['', Validators.required],
             brandName: '',
             itemShortDescription: '',
-            weights: this.fb.array([this.weightForm()])
+            storeId: ['1'],
+            storeInventoryProductUnit: this.fb.array([this.weightForm()])
         });
         console.log('item => ', this.item);
         if (this.item) {
@@ -32,15 +33,15 @@ export class ItemModalPage implements OnInit {
     }
 
     loadProduct(item) {
-      this.productForm.get('productName').setValue(item.productName);
-      this.productForm.get('brandName').setValue(item.brandName);
-      this.productForm.get('itemShortDescription').setValue(item.itemShortDescription);
-      this.productForm.get('weights').patchValue(item.storeInventoryProductUnit);
+        this.productForm.get('productName').setValue(item.productName);
+        this.productForm.get('brandName').setValue(item.brandName);
+        this.productForm.get('itemShortDescription').setValue(item.itemShortDescription);
+        this.productForm.get('storeInventoryProductUnit').patchValue(item.storeInventoryProductUnit);
     }
 
     // convenience getters for easy access to form fields
     get f() { return this.productForm.controls; }
-    get w() { return this.f.weights as FormArray; }
+    get w() { return this.f.storeInventoryProductUnit as FormArray; }
 
     weightForm(): FormGroup {
         return this.fb.group({
@@ -57,11 +58,18 @@ export class ItemModalPage implements OnInit {
         this.w.push(this.weightForm());
     }
 
+    /**
+     * Add new product
+     */
     addProduct() {
         const isValid = this.productForm.valid;
         console.log('is valid ', isValid);
         if (isValid) {
             console.log('value ', this.productForm.value);
+            this._menuService.addProduct(this.productForm.value).subscribe(() => {
+                this._menuService.addProduct$.next(true);
+                this.closeModal();
+            })
         }
     }
 

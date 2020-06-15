@@ -43,7 +43,7 @@
       </ion-row>
       <ion-button (click)="addWeight()">Add Weights</ion-button>
       <div
-        formArrayName="weights"
+        formArrayName="storeInventoryProductUnit"
         *ngFor="let item of w.controls;let i = index;"
       >
         <div style="border: 1px solid grey;" [formGroupName]="i">

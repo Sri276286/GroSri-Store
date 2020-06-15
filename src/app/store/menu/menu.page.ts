@@ -3,7 +3,7 @@ import { MenuService } from '../services/menu.service';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ItemModalPage } from './item/item.page';
 import { ItemDialogPage } from './item-dialog/item-dialog.page';
-import { ItemWeightsPage } from './item-weights/item-weights.page';
+import { ProductSearchPage } from './product-search/product-search.component';
 
 @Component({
     templateUrl: 'menu.page.html',
@@ -45,10 +45,6 @@ export class MenuPage {
         this._menuService.getOutOfStocks().subscribe((resp: any) => {
             this.outOfStockProducts = resp;
         });
-    }
-
-    selectWeightsModal(item) {
-        this.presentWeightsModal(item);
     }
 
     menuSegmentChange(value) {
@@ -114,21 +110,16 @@ export class MenuPage {
         this.presentProductModal();
     }
 
-    updateItem(item) {
-        this.presentProductModal(item);
+    /**
+     * Search items
+     */
+    searchDialog() {
+        this.presentSearchModal();
     }
 
-    deleteItem(item) {
-        this.presentAlert(item);
-    }
-
-    async presentWeightsModal(item?: any) {
+    async presentSearchModal() {
         const modal = await this.modalCtrl.create({
-            component: ItemWeightsPage,
-            cssClass: 'modal-grosri',
-            componentProps: {
-                'item': item
-            }
+            component: ProductSearchPage
         });
         return await modal.present();
     }
@@ -149,30 +140,6 @@ export class MenuPage {
             cssClass: 'modal-grosri'
         });
         return await modal.present();
-    }
-
-    async presentAlert(item) {
-        const alert = await this.alertCtrl.create({
-            cssClass: 'my-custom-class',
-            header: `Remove ${item.productName}`,
-            message: `Do you want to remove ${item.productName}?`,
-            buttons: [
-                {
-                    text: 'No',
-                    cssClass: 'secondary',
-                    handler: (blah) => {
-                        console.log('Confirm Cancel: blah');
-                    }
-                }, {
-                    text: 'Yes',
-                    handler: () => {
-                        console.log('Confirm Okay');
-                    }
-                }
-            ]
-        });
-
-        await alert.present();
     }
 
     async presentCategoryAlert(type: string, catValue: string) {
