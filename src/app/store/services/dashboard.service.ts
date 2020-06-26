@@ -91,7 +91,7 @@ export class DashboardService {
             case 'STORE_CANCELLED':
                 newStatus = 'REJECTED';
                 break;
-            case 'PREPARED':
+            case 'PREPARE':
                 newStatus = 'PREPARING';
                 break;
             case 'READY':
@@ -106,6 +106,11 @@ export class DashboardService {
         return newStatus;
     }
 
+    /**
+     * UI status mapping with server status
+     * @param currentStatus
+     * @param reject
+     */
     private statusUpdateMapping(currentStatus: string, reject?: boolean) {
         console.log('current status ', currentStatus);
         let updatedStatus = '';
@@ -118,12 +123,12 @@ export class DashboardService {
                     updatedStatus = 'ACCEPTED';
                 break;
             case 'ACCEPTED':
-                updatedStatus = 'PREPARED';
+                updatedStatus = 'PREPARE';
                 break;
-            case 'PREPARED':
+            case 'PREPARING':
                 updatedStatus = 'READY';
                 break;
-            case 'READY':
+            case 'READY TO PICKUP':
                 updatedStatus = 'DELIVERED';
                 break;
             default:

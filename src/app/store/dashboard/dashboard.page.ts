@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../services/dashboard.service';
 import { StoreOrder } from '../models/store.model';
 import { ToastController, MenuController } from '@ionic/angular';
+import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +15,9 @@ export class DashboardPage implements OnInit {
   public currentOrders: StoreOrder[] = [];
   constructor(private _dashboardService: DashboardService,
     private toastCtrl: ToastController,
-    private menuCtrl: MenuController) { }
+    private menuCtrl: MenuController,
+    private _loginService: LoginService,
+    private _router: Router) { }
 
   ngOnInit() {
     this.getDashBoardDetails();
@@ -64,6 +68,20 @@ export class DashboardPage implements OnInit {
       ]
     });
     toast.present();
+  }
+
+  logout() {
+    console.log('logout');
+    this._loginService.doLogout().subscribe(() => {
+      this.logoutReset();
+    }, () => {
+      this.logoutReset();
+    });
+  }
+
+  logoutReset() {
+    localStorage.clear();
+    this._router.navigate(['/login']);
   }
 
 

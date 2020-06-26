@@ -1,27 +1,32 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
-  <!--Load tabs-->
-<ion-tabs>
-  <ion-tab-bar slot="bottom" #myTabBar id="myTabBar">
-    <ion-tab-button tab="dashboard">
-      <ion-icon name="home"></ion-icon>
-      <ion-label>Home</ion-label>
-    </ion-tab-button>
+  <ion-content>
+    <ion-router-outlet></ion-router-outlet>
+    <!--Load tabs-->
+    <ion-tabs>
+      <ion-tab-bar slot="bottom" id="myTabBar">
+        <ion-tab-button tab="dashboard">
+          <ion-icon name="home"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-tab-button>
 
-    <ion-tab-button tab="business">
-      <ion-icon name="business"></ion-icon>
-      <ion-label>Business</ion-label>
-    </ion-tab-button>
+        <ion-tab-button tab="business">
+          <ion-icon name="business"></ion-icon>
+          <ion-label>Business</ion-label>
+        </ion-tab-button>
 
-    <ion-tab-button tab="menu">
-      <ion-icon name="grid"></ion-icon>
-      <ion-label>Menu</ion-label>
-    </ion-tab-button>
+        <ion-tab-button tab="menu">
+          <ion-icon name="grid"></ion-icon>
+          <ion-label>Menu</ion-label>
+        </ion-tab-button>
 
-    <ion-tab-button tab="past-orders">
-      <ion-icon name="checkmark-done-circle"></ion-icon>
-      <ion-label>Past Orders</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
+        <ion-tab-button tab="past-orders">
+          <ion-icon name="checkmark-done-circle"></ion-icon>
+          <ion-label>Past Orders</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-content>
+  <!-- <ion-footer>
+    <ion-toolbar> </ion-toolbar>
+  </ion-footer> -->
 </ion-app>

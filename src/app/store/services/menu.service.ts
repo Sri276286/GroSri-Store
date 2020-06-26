@@ -22,8 +22,8 @@ export class MenuService {
      * Get Store Menu
      */
     getMenu() {
-        // return this._http.get(ApiConfig.storeMenuURL)
-        return this._http.get(this.menuURL)
+        return this._http.get(ApiConfig.storeMenuURL)
+            // return this._http.get(this.menuURL)
             .pipe(tap((res: any) => {
                 this.mapProducts(res && res.productsByCategory);
             }));

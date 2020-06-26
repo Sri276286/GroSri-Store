@@ -25,4 +25,11 @@ export class LoginService {
                 localStorage.setItem('auth_token', resp.accessToken);
             }));
     }
+
+    /**
+ * Logout url
+ */
+    doLogout() {
+        return this._http.get(ApiConfig.logoutURL);
+    }
 }
