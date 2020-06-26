@@ -7,6 +7,7 @@ import { SignupPage } from './store/signup/signup.page';
 import { PastOrdersPage } from './store/past-orders/past-orders.page';
 import { MenuPage } from './store/menu/menu.page';
 import { BusinessPage } from './store/business/business.page';
+import { TabsPage } from './store/tabs/tabs.page';
 
 const routes: Routes = [
   {
@@ -18,28 +19,39 @@ const routes: Routes = [
     component: SignupPage
   },
   {
-    path: 'dashboard',
-    component: DashboardPage
-  },
-  {
-    path: 'past-orders',
-    component: PastOrdersPage
-  },
-  {
-    path: 'menu',
-    component: MenuPage
-  },
-  {
     path: 'order/:id',
     component: OrdersPage
   },
   {
-    path: 'business',
-    component: BusinessPage
+    path: 'home',
+    component: TabsPage,
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardPage
+      },
+      {
+        path: 'past-orders',
+        component: PastOrdersPage
+      },
+      {
+        path: 'menu',
+        component: MenuPage
+      },
+      {
+        path: 'business',
+        component: BusinessPage
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      }
+    ]
   },
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'home',
     pathMatch: 'full'
   }
 ];

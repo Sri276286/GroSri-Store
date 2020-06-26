@@ -1,32 +1,43 @@
 <ion-app>
-  <ion-content>
-    <ion-router-outlet></ion-router-outlet>
-    <!--Load tabs-->
-    <ion-tabs>
-      <ion-tab-bar slot="bottom" id="myTabBar">
-        <ion-tab-button tab="dashboard">
-          <ion-icon name="home"></ion-icon>
-          <ion-label>Home</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="business">
-          <ion-icon name="business"></ion-icon>
-          <ion-label>Business</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="menu">
-          <ion-icon name="grid"></ion-icon>
-          <ion-label>Menu</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="past-orders">
-          <ion-icon name="checkmark-done-circle"></ion-icon>
-          <ion-label>Past Orders</ion-label>
-        </ion-tab-button>
-      </ion-tab-bar>
-    </ion-tabs>
-  </ion-content>
-  <!-- <ion-footer>
-    <ion-toolbar> </ion-toolbar>
-  </ion-footer> -->
+  <ion-split-pane contentId="mainMenu">
+    <ion-menu side="start" type="overlay" contentId="mainMenu">
+      <ion-header>
+        <ion-menu-toggle>
+          <ion-toolbar color="primary">
+            <ion-title [routerLink]="['/']">Home</ion-title>
+          </ion-toolbar>
+        </ion-menu-toggle>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-item-divider>
+            <ion-label>
+              Booster
+            </ion-label>
+          </ion-item-divider>
+          <ion-menu-toggle>
+            <ion-item>Promotions</ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle>
+            <ion-item>Feedback</ion-item>
+          </ion-menu-toggle>
+          <ion-item-divider>
+            <ion-label>
+              Personal
+            </ion-label>
+          </ion-item-divider>
+          <ion-menu-toggle>
+            <ion-item>About</ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle>
+            <ion-item>Contact Us</ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle>
+            <ion-item (click)="logout()">Logout</ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="mainMenu"></ion-router-outlet>
+  </ion-split-pane>
 </ion-app>

@@ -70,19 +70,4 @@ export class DashboardPage implements OnInit {
     toast.present();
   }
 
-  logout() {
-    console.log('logout');
-    this._loginService.doLogout().subscribe(() => {
-      this.logoutReset();
-    }, () => {
-      this.logoutReset();
-    });
-  }
-
-  logoutReset() {
-    localStorage.clear();
-    this._router.navigate(['/login']);
-  }
-
-
 }

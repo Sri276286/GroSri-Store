@@ -16,6 +16,7 @@ import { ItemDialogPage } from './menu/item-dialog/item-dialog.page';
 import { ItemWeightsPage } from './menu/item-weights/item-weights.page';
 import { ProductSearchPage } from './menu/product-search/product-search.component';
 import { ProductListPage } from './menu/product-list/product-list.page';
+import { TabsPage } from './tabs/tabs.page';
 
 @NgModule({
     imports: [
@@ -26,6 +27,7 @@ import { ProductListPage } from './menu/product-list/product-list.page';
         RouterModule
     ],
     declarations: [
+        TabsPage,
         DashboardPage,
         OrdersPage,
         LoginPage,
