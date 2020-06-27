@@ -12,9 +12,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreModule } from './store/store.module';
 import { FormsModule } from '@angular/forms';
 import { ApiInterceptor } from './interceptors/api.interceptor';
+import { SideMenuPage } from './store/side-menu/side-menu.page';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SideMenuPage],
   entryComponents: [],
   imports: [BrowserModule,
     IonicModule.forRoot(),

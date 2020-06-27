@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-menu-toggle>
+    <ion-toolbar color="primary">
+      <ion-title [routerLink]="['/home']">Home</ion-title>
+    </ion-toolbar>
+  </ion-menu-toggle>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item-divider>
+      <ion-label>
+        Booster
+      </ion-label>
+    </ion-item-divider>
+    <ion-menu-toggle>
+      <ion-item>Promotions</ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle>
+      <ion-item>Feedback</ion-item>
+    </ion-menu-toggle>
+    <ion-item-divider>
+      <ion-label>
+        Personal
+      </ion-label>
+    </ion-item-divider>
+    <ion-menu-toggle>
+      <ion-item>About</ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle>
+      <ion-item>Contact Us</ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle>
+      <ion-item (click)="logout()">Logout</ion-item>
+    </ion-menu-toggle>
+  </ion-list>
+</ion-content>

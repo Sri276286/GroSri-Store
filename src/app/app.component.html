@@ -4,7 +4,7 @@
       <ion-header>
         <ion-menu-toggle>
           <ion-toolbar color="primary">
-            <ion-title [routerLink]="['/']">Home</ion-title>
+            <ion-title [routerLink]="['/home']">Home</ion-title>
           </ion-toolbar>
         </ion-menu-toggle>
       </ion-header>
@@ -26,6 +26,12 @@
               Personal
             </ion-label>
           </ion-item-divider>
+          <ion-menu-toggle>
+            <ion-item [routerLink]="['/profile']">
+              <ion-icon name="person-outline" slot="start"></ion-icon>
+              <ion-label>My Account</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
           <ion-menu-toggle>
             <ion-item>About</ion-item>
           </ion-menu-toggle>

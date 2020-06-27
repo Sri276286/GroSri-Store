@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { ItemWeightsPage } from '../item-weights/item-weights.page';
 import { ItemModalPage } from '../item/item.page';
+import { CommonService } from '../../services/common.service';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
     selector: 'product-list',
@@ -12,33 +14,37 @@ export class ProductListPage {
     @Input('products') products;
 
     constructor(private modalCtrl: ModalController,
-        private alertCtrl: AlertController) { }
+        private alertCtrl: AlertController,
+        private _commonService: CommonService,
+        private _menuService: MenuService) { }
 
     selectWeightsModal(item) {
         this.presentWeightsModal(item);
     }
 
     updateItem(item) {
-        this.presentProductModal(item);
+        this._commonService.presentModal(ItemModalPage, {item});
     }
 
-    deleteItem(item) {
-        this.presentAlert(item);
-    }
-
-    async presentProductModal(item?: any) {
-        const modal = await this.modalCtrl.create({
-            component: ItemModalPage,
-            componentProps: {
-                'item': item
-            }
+    deleteProduct(id) {
+        this._menuService.deleteProduct(id).subscribe(() => {
+            this._menuService.productHandleSuccess$.next(true);
+        }, () => {
+            // TODO show a toast
         });
-        return await modal.present();
+    }
+
+
+    /**
+     * Show alert to delete product
+     * @param item
+     */
+    deleteItemAlert(item) {
+        this.presentAlert(item);
     }
 
     async presentAlert(item) {
         const alert = await this.alertCtrl.create({
-            cssClass: 'my-custom-class',
             header: `Remove ${item.productName}`,
             message: `Do you want to remove ${item.productName}?`,
             buttons: [
@@ -51,7 +57,7 @@ export class ProductListPage {
                 }, {
                     text: 'Yes',
                     handler: () => {
-                        console.log('Confirm Okay');
+                        this.deleteProduct(item.id);
                     }
                 }
             ]

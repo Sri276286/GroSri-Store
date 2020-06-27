@@ -17,6 +17,8 @@ import { ItemWeightsPage } from './menu/item-weights/item-weights.page';
 import { ProductSearchPage } from './menu/product-search/product-search.component';
 import { ProductListPage } from './menu/product-list/product-list.page';
 import { TabsPage } from './tabs/tabs.page';
+import { ProfilePage } from './profile/profile.page';
+import { UserModalPage } from './profile/user-modal/user-modal.page';
 
 @NgModule({
     imports: [
@@ -32,6 +34,7 @@ import { TabsPage } from './tabs/tabs.page';
         OrdersPage,
         LoginPage,
         SignupPage,
+        ProfilePage,
         ProductModalPage,
         PastOrdersPage,
         MenuPage,
@@ -40,7 +43,8 @@ import { TabsPage } from './tabs/tabs.page';
         ItemDialogPage,
         ItemWeightsPage,
         ProductSearchPage,
-        ProductListPage
+        ProductListPage,
+        UserModalPage
     ]
 })
 export class StoreModule {

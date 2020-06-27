@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { LoginService } from './store/services/login.service';
+import { CommonService } from './store/services/common.service';
 
 @Component({
   selector: 'app-root',
@@ -18,17 +19,29 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private _router: Router,
-    private _loginService: LoginService
+    private _loginService: LoginService,
+    private _commonService: CommonService
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // this.routehandler();
+      this.validateToken();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  validateToken() {
+    const isLoggedIn = this._commonService.isLogin();
+    if (isLoggedIn) {
+      this._loginService.isTokenValid().subscribe(() => {
+        localStorage.setItem('session_active', 'true');
+      }, () => {
+        localStorage.clear();
+      });
+    }
   }
 
   logout() {

@@ -64,7 +64,7 @@
             <ion-row>
               <ion-col size="4">
                 <span class="span-content">
-                  {{item.max_quantity}} items
+                  {{item.available_quantity}} items
                 </span>
               </ion-col>
             </ion-row>
@@ -82,7 +82,7 @@
                   <ion-icon
                     name="trash"
                     size="large"
-                    (click)="deleteItem(item)"
+                    (click)="deleteItemAlert(item)"
                   ></ion-icon>
                 </div>
               </ion-col>

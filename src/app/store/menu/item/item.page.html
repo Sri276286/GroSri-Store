@@ -7,9 +7,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-label class="ion-padding" color="secondary">
+    <span>{{category}}</span>
+    <span *ngIf="subCategory"> > {{subCategory}}</span>
+  </ion-label>
   <form
     [formGroup]="productForm"
-    (ngSubmit)="productForm.valid && addProduct()"
+    (ngSubmit)="productForm.valid && submitProduct()"
   >
   <span style="color: red;" *ngIf="productForm.invalid">* Please fill all mandatory fields</span>
     <ion-grid>
@@ -60,7 +64,6 @@
                     style="visibility: hidden;"
                     type="file"
                     (change)="selectFile($event)"
-                    formControlName="imageUrl"
                   />
                 </div>
                 <!-- <ion-button>
@@ -101,7 +104,7 @@
                   formControlName="unit"
                 >
                   <ion-select-option value="kg">Kg</ion-select-option>
-                  <ion-select-option value="gram">Grams</ion-select-option>
+                  <ion-select-option value="g">Gram</ion-select-option>
                 </ion-select>
               </ion-item>
             </ion-col>

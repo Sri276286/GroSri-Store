@@ -8,6 +8,8 @@ import { PastOrdersPage } from './store/past-orders/past-orders.page';
 import { MenuPage } from './store/menu/menu.page';
 import { BusinessPage } from './store/business/business.page';
 import { TabsPage } from './store/tabs/tabs.page';
+import { AuthGuard } from './guards/auth.guard';
+import { ProfilePage } from './store/profile/profile.page';
 
 const routes: Routes = [
   {
@@ -20,7 +22,13 @@ const routes: Routes = [
   },
   {
     path: 'order/:id',
-    component: OrdersPage
+    component: OrdersPage,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile',
+    component: ProfilePage,
+    canActivate: [AuthGuard]
   },
   {
     path: 'home',
@@ -47,11 +55,12 @@ const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full'
       }
-    ]
+    ],
+    canActivate: [AuthGuard]
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   }
 ];

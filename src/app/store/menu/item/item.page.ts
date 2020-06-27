@@ -10,6 +10,8 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 export class ItemModalPage implements OnInit {
 
     @Input('item') item;
+    @Input('category') category;
+    @Input('subCategory') subCategory;
     productForm: FormGroup;
     weights: FormArray;
     constructor(private _menuService: MenuService,
@@ -20,23 +22,43 @@ export class ItemModalPage implements OnInit {
 
     ngOnInit() {
         this.productForm = this.fb.group({
+            id: '',
             productName: ['', Validators.required],
             brandName: '',
             itemShortDescription: '',
             storeId: ['1'],
-            storeInventoryProductUnit: this.fb.array([this.weightForm()])
+            productCategory: this.category,
+            productSubCategory: this.subCategory,
+            storeInventoryProductUnit: this.fb.array([this.weightForm()]),
+            available_quantity: '',
+            itemLongDescription: '',
+            max_quantity: '',
+            mrp: '',
+            price: '',
+            productImgUrl: '',
+            productSub2Category: '',
+            quantity: '',
+            storeStoreName: '',
+            unit: '',
+            weight: '',
+            storeInventoryProductUnitId: ''
         });
         console.log('item => ', this.item);
         if (this.item) {
+            this.category = this.item.productCategory;
+            this.subCategory = this.item.productSubCategory;
             this.loadProduct(this.item);
         }
     }
 
     loadProduct(item) {
-        this.productForm.get('productName').setValue(item.productName);
-        this.productForm.get('brandName').setValue(item.brandName);
-        this.productForm.get('itemShortDescription').setValue(item.itemShortDescription);
-        this.productForm.get('storeInventoryProductUnit').patchValue(item.storeInventoryProductUnit);
+        // this.productForm.get('productName').setValue(item.productName);
+        // this.productForm.get('brandName').setValue(item.brandName);
+        // this.productForm.get('itemShortDescription').setValue(item.itemShortDescription);
+        // this.productForm.get('productCategory').setValue(item.productCategory);
+        // this.productForm.get('productSubCategory').setValue(item.productSubCategory);
+        // this.productForm.get('storeInventoryProductUnit').setValue(item.storeInventoryProductUnit);
+        this.productForm.setValue(item);
     }
 
     // convenience getters for easy access to form fields
@@ -45,12 +67,17 @@ export class ItemModalPage implements OnInit {
 
     weightForm(): FormGroup {
         return this.fb.group({
-            imageUrl: '',
+            // imageUrl: '',
+            id: '',
+            storeInventoryProductId: '',
             available_quantity: ['', Validators.required],
             weight: ['', Validators.required],
             unit: ['kg', Validators.required],
             mrp: [''],
-            price: ['', Validators.required]
+            price: ['', Validators.required],
+            max_quantity: '',
+            quantity: ''
+
         });
     }
 
@@ -59,17 +86,29 @@ export class ItemModalPage implements OnInit {
     }
 
     /**
-     * Add new product
+     * Add new product/ Update existing product
      */
-    addProduct() {
+    submitProduct() {
         const isValid = this.productForm.valid;
         console.log('is valid ', isValid);
         if (isValid) {
             console.log('value ', this.productForm.value);
-            this._menuService.addProduct(this.productForm.value).subscribe(() => {
-                this._menuService.addProduct$.next(true);
-                this.closeModal();
-            })
+            if (this.item) {
+                console.log('item ', this.item);
+                this._menuService.updateProduct(this.productForm.value).subscribe(() => {
+                    this._menuService.productHandleSuccess$.next(true);
+                }, () => {
+                    // TODO: Show a failed toast message
+                    this.closeModal();
+                });
+            } else {
+                this._menuService.addProduct(this.productForm.value).subscribe(() => {
+                    this._menuService.productHandleSuccess$.next(true);
+                }, () => {
+                    // TODO: Show a failed toast message
+                    this.closeModal();
+                });
+            }
         }
     }
 
@@ -85,6 +124,7 @@ export class ItemModalPage implements OnInit {
     }
 
     closeModal() {
+        console.log('close modal');
         this.modalCtrl.dismiss();
     }
 

@@ -4,6 +4,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { ItemModalPage } from './item/item.page';
 import { ItemDialogPage } from './item-dialog/item-dialog.page';
 import { ProductSearchPage } from './product-search/product-search.component';
+import { CommonService } from '../services/common.service';
 
 @Component({
     templateUrl: 'menu.page.html',
@@ -19,15 +20,25 @@ export class MenuPage {
 
     constructor(private _menuService: MenuService,
         private alertCtrl: AlertController,
-        private modalCtrl: ModalController) {
+        private modalCtrl: ModalController,
+        private _commonService: CommonService) {
         this.getMenuItems();
         this._menuService.addSubCategory$.subscribe((isPresent) => {
             if (isPresent)
                 this.getMenuItems();
         });
-        this._menuService.addProduct$.subscribe((isPresent) => {
-            if (isPresent)
-                this.presentProductModal();
+        // refresh store after adding/updating a product
+        this._menuService.productHandleSuccess$.subscribe((success) => {
+            if (success) {
+                if (this.modalCtrl) {
+                    this.modalCtrl.dismiss();
+                }
+                this.getMenuItems();
+            }
+        });
+        this._menuService.addProduct$.subscribe((category) => {
+            if (category)
+                this.addItem(category);
         });
     }
 
@@ -81,8 +92,8 @@ export class MenuPage {
      * Modal to add a subcategory or select to add a product
      * @param type
      */
-    addItemOrSubcateg() {
-        this.presentAddProductModal();
+    addItemOrSubcateg(category: string) {
+        this._commonService.presentModal(ItemDialogPage, { category }, 'modal-grosri')
     }
 
     /**
@@ -97,17 +108,24 @@ export class MenuPage {
      */
     editCategory(type: string, name: string) {
         if (type === 'category') {
-            this._menuService.updateCategory(name).subscribe();
+            this._menuService.updateCategory(name).subscribe(() => {
+                this.modalCtrl.dismiss();
+            });
         } else {
-            this._menuService.updateSubCategory(name).subscribe();
+            this._menuService.updateSubCategory(name).subscribe(() => {
+                this.modalCtrl.dismiss();
+            });
         }
     }
 
     /**
      * Modal to add a product
      */
-    addItem() {
-        this.presentProductModal();
+    addItem(category: string, subCategory?: string) {
+        const properties = {
+            category, subCategory
+        }
+        this._commonService.presentModal(ItemModalPage, properties);
     }
 
     /**
@@ -120,16 +138,6 @@ export class MenuPage {
     async presentSearchModal() {
         const modal = await this.modalCtrl.create({
             component: ProductSearchPage
-        });
-        return await modal.present();
-    }
-
-    async presentProductModal(item?: any) {
-        const modal = await this.modalCtrl.create({
-            component: ItemModalPage,
-            componentProps: {
-                'item': item
-            }
         });
         return await modal.present();
     }

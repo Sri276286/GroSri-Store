@@ -12,11 +12,10 @@ export class MenuService {
     menuURL: string = 'assets/mocks/menu.json';
     outOfStockURL: string = 'assets/mocks/outOfStocks.json';
     addSubCategory$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    addProduct$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    addProduct$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    productHandleSuccess$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private productsList = [];
-    constructor(private _http: HttpClient) {
-
-    }
+    constructor(private _http: HttpClient) { }
 
     /**
      * Get Store Menu
@@ -54,6 +53,20 @@ export class MenuService {
      */
     addProduct(product) {
         return this._http.post(`${ApiConfig.addProductURL}`, product);
+    }
+
+    /**
+     * Update product
+     */
+    updateProduct(product) {
+        return this._http.put(`${ApiConfig.updateProductURL}`, product);
+    }
+
+    /**
+     * Delete product
+     */
+    deleteProduct(id) {
+        return this._http.get(`${ApiConfig.deleteProductURL}/${id}`);
     }
 
     uploadImage(file) {

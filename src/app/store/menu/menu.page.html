@@ -40,7 +40,7 @@
       <ion-label
         ><span style="font-weight: 600; font-size: 20px;">{{product.key}}</span>
       </ion-label>
-      <ion-icon name="add" (click)="addItemOrSubcateg()"></ion-icon>
+      <ion-icon name="add" (click)="addItemOrSubcateg(product.key)"></ion-icon>
       <ion-icon
         name="create"
         (click)="editCategoryAlert('category', product.key)"
@@ -62,7 +62,7 @@
       <ion-list *ngFor="let subprod of product.value | keyvalue">
         <ion-item>
           <ion-label>{{subprod.key}}</ion-label>
-          <ion-icon name="add" (click)="addItem()"></ion-icon>
+          <ion-icon name="add" (click)="addItem(product.key, subprod.key)"></ion-icon>
           <ion-icon
             name="create"
             (click)="editCategoryAlert('subcategory', subprod.key)"
