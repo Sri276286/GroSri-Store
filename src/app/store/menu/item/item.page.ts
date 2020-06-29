@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MenuService } from '../../services/menu.service';
 import { ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { CommonService } from '../../services/common.service';
 
 @Component({
     templateUrl: 'item.page.html',
@@ -15,6 +16,7 @@ export class ItemModalPage implements OnInit {
     productForm: FormGroup;
     weights: FormArray;
     constructor(private _menuService: MenuService,
+        private _commonService: CommonService,
         private modalCtrl: ModalController,
         private fb: FormBuilder) {
 
@@ -26,7 +28,7 @@ export class ItemModalPage implements OnInit {
             productName: ['', Validators.required],
             brandName: '',
             itemShortDescription: '',
-            storeId: ['1'],
+            storeId: this._commonService.getStoreId(),
             productCategory: this.category,
             productSubCategory: this.subCategory,
             storeInventoryProductUnit: this.fb.array([this.weightForm()]),

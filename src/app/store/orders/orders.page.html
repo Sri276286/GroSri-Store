@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+      <ion-back-button defaultHref="/home/dashboard"></ion-back-button>
     </ion-buttons>
-    <ion-title>Order #{{orderId}}</ion-title>
+    <ion-title *ngIf="order">Order #{{order.id}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card *ngFor="let product of products">
+<ion-content *ngIf="order && order.orderProducts.length">
+  <ion-card *ngFor="let product of order.orderProducts">
     <ion-card-content>
       <ion-grid>
         <ion-row>
@@ -24,7 +24,7 @@
                 <span class="span-content">{{product.brandName}}</span>
               </ion-col>
             </ion-row>
-            <br>
+            <br />
             <ion-row>
               <ion-col>
                 <div style="display: flex;">
@@ -34,10 +34,27 @@
                   <span class="span-quantity">{{product.quantity}}</span>
                 </div>
               </ion-col>
-              <ion-col>
-                <ion-icon name="create" size="large" (click)="editProduct(product)"></ion-icon>
-                <ion-icon name="checkmark-circle-outline" size="large" *ngIf="!selected" (click)="onProductSelect()"></ion-icon>
-                <ion-icon name="checkmark-circle" size="large" *ngIf="selected"></ion-icon>
+              <ion-col
+                *ngIf="order.orderStatus !== 'STORE_CANCELLED'
+              && order.orderStatus !== 'CUSTOMER_CANCELLED'
+              && order.orderStatus !== 'DELIVERED'"
+              >
+                <ion-icon
+                  name="create"
+                  size="large"
+                  (click)="editProduct(product)"
+                ></ion-icon>
+                <ion-icon
+                  name="checkmark-circle-outline"
+                  size="large"
+                  *ngIf="!selected"
+                  (click)="onProductSelect()"
+                ></ion-icon>
+                <ion-icon
+                  name="checkmark-circle"
+                  size="large"
+                  *ngIf="selected"
+                ></ion-icon>
               </ion-col>
             </ion-row>
           </ion-col>

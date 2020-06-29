@@ -2,18 +2,21 @@
     <ion-item-divider sticky="true" class="ion-no-padding">
       <ion-grid *ngIf="user">
         <ion-row>
-          <ion-col size="9">
+          <ion-col size="2">
+            <ion-menu-button></ion-menu-button>
+          </ion-col>
+          <ion-col size="8">
             <ion-row>
               <ion-col>
                 <span class="span-name">{{user.name}}</span>
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col size="4">{{user.mobileNumber}}</ion-col>
-              <ion-col size="8">{{user.email}}</ion-col>
+              <ion-col size="5">{{user.mobileNumber}}</ion-col>
+              <ion-col size="7">{{user.email}}</ion-col>
             </ion-row>
           </ion-col>
-          <ion-col size="3"
+          <ion-col size="2"
             ><ion-button color="secondary" (click)="editProfile()"
               >Edit</ion-button
             ></ion-col
@@ -21,7 +24,10 @@
         </ion-row>
       </ion-grid>
     </ion-item-divider>
-    <hr />
+    <ion-item (click)="storeSettingsModal()"
+    ><ion-icon name="settings-outline" slot="start"></ion-icon
+    ><ion-label class="span-list-item">Store Settings</ion-label></ion-item
+  >
     <ion-item (click)="logout()"
       ><ion-icon name="power-outline" slot="start"></ion-icon
       ><ion-label class="span-list-item">Logout</ion-label></ion-item

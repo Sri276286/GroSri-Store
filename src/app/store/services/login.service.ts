@@ -56,6 +56,7 @@ export class LoginService {
         return this._http.get(ApiConfig.userDetailsURL)
             .pipe(map((res: any) => {
                 const user = res && res.data;
+                localStorage.setItem('storeId', user.storeId);
                 // login successful if there's a jwt token in the response
                 if (user) {
                     this._mapUser(user);

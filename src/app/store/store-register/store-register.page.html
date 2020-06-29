@@ -1,0 +1,86 @@
+<ion-grid>
+  <ion-row class="ion-justify-content-center">
+    <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+      <form
+        [formGroup]="storeRegisterForm"
+        (ngSubmit)="storeRegisterForm.valid && onSubmit(storeRegisterForm.valid)"
+      >
+        <div
+          class="ion-padding"
+          *ngIf="storeRegisterForm.get('mobileNumber').errors?.pattern"
+        >
+          <span style="color: red;"
+            >Phone number must be a valid 10 digit number.</span
+          >
+        </div>
+        <div class="ion-padding">
+          <ion-note color="primary">
+            Please fill these details. We will contact you.
+          </ion-note>
+          <ion-item>
+            <ion-icon name="business" slot="start"></ion-icon>
+            <ion-input
+              type="text"
+              placeholder="* Store Name"
+              formControlName="name"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="person-circle" slot="start"></ion-icon>
+            <ion-input
+              type="text"
+              placeholder="Owner/Admin Name"
+              formControlName="owner_name"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="call" slot="start"></ion-icon>
+            <ion-input
+              type="text"
+              placeholder="* Enter 10 digit Mobile No."
+              formControlName="mobileNumber"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="locate" slot="start"></ion-icon>
+            <ion-input
+              type="text"
+              placeholder="Area"
+              formControlName="area"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="navigate" slot="start"></ion-icon>
+            <ion-input
+              type="text"
+              placeholder="City"
+              formControlName="city"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="apps" slot="start"></ion-icon>
+            <ion-input
+              type="text"
+              placeholder="Category Ex.Grocery"
+              formControlName="store_type"
+            ></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="ion-padding">
+          <ion-button
+          type="submit"
+            size="large"
+            expand="block"
+            [disabled]="storeRegisterForm.invalid"
+            >Register</ion-button
+          >
+        </div>
+      </form>
+      <div class="ion-padding">
+        Already a user?
+        <span class="login_text" [routerLink]="['/login']">Login</span>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

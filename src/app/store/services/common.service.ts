@@ -31,6 +31,14 @@ export class CommonService {
         return auth_token && session_active ? true : false;
     }
 
+    /**
+     * Get store id
+     */
+    public getStoreId() {
+        const store_id = localStorage.getItem('storeId');
+        return store_id ? store_id : '';
+    }
+
     async presentModal(component, properties?: any, cssClass?: string) {
         const modal = await this._modalCtrl.create({
             component: component,

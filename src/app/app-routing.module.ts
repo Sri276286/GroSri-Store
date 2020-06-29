@@ -10,6 +10,8 @@ import { BusinessPage } from './store/business/business.page';
 import { TabsPage } from './store/tabs/tabs.page';
 import { AuthGuard } from './guards/auth.guard';
 import { ProfilePage } from './store/profile/profile.page';
+import { StoreValidatePage } from './store/store-validate/store-validate.page';
+import { StoreRegisterPage } from './store/store-register/store-register.page';
 
 const routes: Routes = [
   {
@@ -19,6 +21,14 @@ const routes: Routes = [
   {
     path: 'register',
     component: SignupPage
+  },
+  {
+    path: 'store-validate',
+    component: StoreValidatePage
+  },
+  {
+    path: 'store-register',
+    component: StoreRegisterPage
   },
   {
     path: 'order/:id',

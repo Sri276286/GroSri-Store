@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ApiConfig } from 'src/app/config/api.config';
+import { CommonService } from './common.service';
 
 @Injectable({
     providedIn: 'root'
@@ -15,13 +16,15 @@ export class MenuService {
     addProduct$: BehaviorSubject<string> = new BehaviorSubject<string>('');
     productHandleSuccess$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private productsList = [];
-    constructor(private _http: HttpClient) { }
+    constructor(private _http: HttpClient,
+        private _commonService: CommonService) { }
 
     /**
      * Get Store Menu
      */
     getMenu() {
-        return this._http.get(ApiConfig.storeMenuURL)
+        const storeId = this._commonService.getStoreId();
+        return this._http.get(`${ApiConfig.storeMenuURL}/${storeId}`)
             // return this._http.get(this.menuURL)
             .pipe(tap((res: any) => {
                 this.mapProducts(res && res.productsByCategory);

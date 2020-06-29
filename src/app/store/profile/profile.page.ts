@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { LoginService } from '../services/login.service';
 import { UserModalPage } from './user-modal/user-modal.page';
+import { CommonService } from '../services/common.service';
+import { StoreSettingsPage } from './store-settings/store-settings.page';
 
 @Component({
     templateUrl: 'profile.page.html',
@@ -12,7 +14,7 @@ export class ProfilePage {
     user;
     constructor(private _loginService: LoginService,
         private _route: Router,
-        private modalCtrl: ModalController) {
+        private _commonService: CommonService) {
         this._loginService.getCurrentUser().subscribe((user) => {
             console.log('current user ', user);
             if (!user) {
@@ -26,17 +28,14 @@ export class ProfilePage {
     }
 
     editProfile() {
-        this.presentUserModal();
+        const user = {
+            user: this.user
+        };
+        this._commonService.presentModal(UserModalPage, user)
     }
 
-    async presentUserModal() {
-        const modal = await this.modalCtrl.create({
-            component: UserModalPage,
-            componentProps: {
-                user: this.user
-            }
-        });
-        return await modal.present();
+    storeSettingsModal() {
+        this._commonService.presentModal(StoreSettingsPage);
     }
 
     logout() {

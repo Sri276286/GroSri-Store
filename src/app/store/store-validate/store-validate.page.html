@@ -1,0 +1,42 @@
+<ion-grid>
+  <ion-row>
+    <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+      <div class="ion-padding">
+        Register your store?
+        <span class="store_register_text" [routerLink]="['/store-register']"
+          >Click Here</span
+        >
+      </div>
+      <form
+        [formGroup]="storeValidateForm"
+        (ngSubmit)="storeValidateForm.valid && submit(storeValidateForm.valid)"
+      >
+        <div class="ion-padding">
+          <ion-item>
+            <ion-icon name="at-circle-outline" slot="start"></ion-icon>
+            <ion-input
+              type="text"
+              placeholder="* Store Id"
+              formControlName="storeId"
+            ></ion-input>
+          </ion-item>
+        </div>
+        <div class="ion-padding">
+          <ion-button
+            type="submit"
+            size="large"
+            expand="block"
+            [disabled]="storeValidateForm.invalid"
+            >Verify</ion-button
+          >
+        </div>
+      </form>
+      <!-- <div class="ion-padding">
+        Register your store?
+        <span class="store_register_text" [routerLink]="['/store-register']"
+          >Click Here</span
+        >
+      </div> -->
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -19,6 +19,9 @@ import { ProductListPage } from './menu/product-list/product-list.page';
 import { TabsPage } from './tabs/tabs.page';
 import { ProfilePage } from './profile/profile.page';
 import { UserModalPage } from './profile/user-modal/user-modal.page';
+import { StoreValidatePage } from './store-validate/store-validate.page';
+import { StoreRegisterPage } from './store-register/store-register.page';
+import { StoreSettingsPage } from './profile/store-settings/store-settings.page';
 
 @NgModule({
     imports: [
@@ -44,7 +47,10 @@ import { UserModalPage } from './profile/user-modal/user-modal.page';
         ItemWeightsPage,
         ProductSearchPage,
         ProductListPage,
-        UserModalPage
+        UserModalPage,
+        StoreValidatePage,
+        StoreRegisterPage,
+        StoreSettingsPage
     ]
 })
 export class StoreModule {

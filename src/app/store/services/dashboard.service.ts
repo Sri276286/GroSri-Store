@@ -15,7 +15,8 @@ export class DashboardService {
     }
 
     getCurrentOrders() {
-        return this._httpClient.get<OrderResponse>(ApiConfig.storeDashboardURL)
+        const storeId = this._commonService.getStoreId();
+        return this._httpClient.get<OrderResponse>(`${ApiConfig.storeDashboardURL}/${storeId}`)
             .pipe(map((res: OrderResponse) => {
                 if (res && res.orders && res.orders.length) {
                     const orders = this.mapCurrentOrders(res.orders);
