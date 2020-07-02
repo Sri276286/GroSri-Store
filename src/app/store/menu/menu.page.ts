@@ -22,6 +22,7 @@ export class MenuPage {
         private alertCtrl: AlertController,
         private modalCtrl: ModalController,
         private _commonService: CommonService) {
+        this._commonService.presentLoading('Menu is loading. Please wait...');
         this.getMenuItems();
         this._menuService.addSubCategory$.subscribe((isPresent) => {
             if (isPresent)

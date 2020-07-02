@@ -3,10 +3,17 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-      <ion-title>Dashboard</ion-title>
+    <ion-title>Dashboard</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingText="Refreshing..."
+    ></ion-refresher-content>
+  </ion-refresher>
   <ion-item>
     <ion-label>
       Current Orders
@@ -14,11 +21,14 @@
   </ion-item>
   <ion-card *ngFor="let order of currentOrders">
     <ion-card-content>
-      <ion-card-title color="primary"
-        ><ion-chip color="primary"
+      <ion-card-title>
+        <ion-chip color="success" *ngIf="order.orderStatus === 'NEW'"
           >{{order.orderStatus | titlecase}}</ion-chip
-        ></ion-card-title
-      >
+        >
+        <ion-chip color="primary" *ngIf="order.orderStatus !== 'NEW'"
+          >{{order.orderStatus | titlecase}}</ion-chip
+        >
+      </ion-card-title>
       <ion-grid>
         <ion-row>
           <ion-col>

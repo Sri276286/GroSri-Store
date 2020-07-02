@@ -14,6 +14,9 @@ export class DashboardService {
         private _commonService: CommonService) {
     }
 
+    /**
+     * Get current orders
+     */
     getCurrentOrders() {
         const storeId = this._commonService.getStoreId();
         return this._httpClient.get<OrderResponse>(`${ApiConfig.storeDashboardURL}/${storeId}`)
@@ -30,8 +33,12 @@ export class DashboardService {
             }));
     }
 
+    /**
+     * Get past orders
+     */
     getPastOrders() {
-        return this._httpClient.get<OrderResponse>(ApiConfig.storeDashboardURL)
+        const storeId = this._commonService.getStoreId();
+        return this._httpClient.get<OrderResponse>(`${ApiConfig.storeDashboardURL}/${storeId}`)
             .pipe(map((res: OrderResponse) => {
                 if (res && res.orders && res.orders.length) {
                     const orders = this.mapPastOrders(res.orders);
@@ -42,6 +49,14 @@ export class DashboardService {
                     return [];
                 }
             }));
+    }
+
+    /**
+     * API call to check for any new order
+     */
+    getNewOrder() {
+        const storeId = this._commonService.getStoreId();
+        return this._httpClient.get(`${ApiConfig.newOrderURL}/${storeId}`);
     }
 
     getOrderById(id: string) {

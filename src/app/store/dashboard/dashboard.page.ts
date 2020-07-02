@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../services/dashboard.service';
 import { StoreOrder } from '../models/store.model';
 import { ToastController, MenuController } from '@ionic/angular';
-import { LoginService } from '../services/login.service';
-import { Router } from '@angular/router';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,14 +15,23 @@ export class DashboardPage implements OnInit {
   constructor(private _dashboardService: DashboardService,
     private toastCtrl: ToastController,
     private menuCtrl: MenuController,
-    private _loginService: LoginService,
-    private _router: Router) { }
+    private _commonService: CommonService) { }
 
   ngOnInit() {
-    this.getDashBoardDetails();
-    // setTimeout(() => {
-    //   this.presentToastWithOptions();
-    // }, 1000);
+    this._commonService.presentLoading('Getting orders. Please wait...');
+    setTimeout(() => {
+      this.getDashBoardDetails();
+    }, 500);
+    // Look for new orders every 15 minutes.
+    setInterval(() => {
+      this.newOrder();
+    }, 15 * 60 * 1000);
+  }
+
+  private newOrder() {
+    this._dashboardService.getNewOrder().subscribe((order: any) => {
+      this.presentToastWithOptions(order);
+    });
   }
 
   private getDashBoardDetails() {
@@ -31,6 +39,18 @@ export class DashboardPage implements OnInit {
       this.currentOrders = res;
       console.log('resss ', res);
     });
+  }
+
+  /**
+   * Do manual refresh
+   */
+  doRefresh(event) {
+    console.log('event ', event);
+    this.newOrder();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 5000);
   }
 
   /**
@@ -51,18 +71,27 @@ export class DashboardPage implements OnInit {
     await this.menuCtrl.open();
   }
 
-  async presentToastWithOptions() {
+  async presentToastWithOptions(order) {
+    const noOfItems = order && order.totalNoProducts;
+    const total = order && order.billTotal;
     const toast = await this.toastCtrl.create({
       header: 'New Order',
-      message: '22 items | Rs.1200',
+      message: noOfItems + ' item(s) | Rs.' + total,
       position: 'top',
-      color: 'secondary',
+      color: 'success',
       buttons: [
         {
           side: 'end',
           icon: 'refresh',
           handler: () => {
             this.getDashBoardDetails();
+          }
+        },
+        {
+          side: 'start',
+          icon: 'close',
+          handler: () => {
+            toast.dismiss();
           }
         }
       ]

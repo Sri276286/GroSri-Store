@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, LoadingController } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -8,8 +9,9 @@ export class CommonService {
 
     placedOrders = [];
     pastOrders = [];
-
-    constructor(private _modalCtrl: ModalController) {
+    getStoreId$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    constructor(private _modalCtrl: ModalController,
+        private _loadingCtrl: LoadingController) {
 
     }
 
@@ -47,4 +49,16 @@ export class CommonService {
         });
         return await modal.present();
     }
+
+    async presentLoading(message) {
+        const loading = await this._loadingCtrl.create({
+          message: message,
+          duration: 1000,
+          spinner: 'circles' // "bubbles" | "circles" | "circular" | "crescent" | "dots" | "lines" | "lines-small"
+        });
+        await loading.present();
+    
+        const { role, data } = await loading.onDidDismiss();
+        console.log('Loading dismissed!', data, role);
+      }
 }

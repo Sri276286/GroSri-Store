@@ -4,6 +4,7 @@ import { ApiConfig } from 'src/app/config/api.config';
 import { tap, map } from 'rxjs/operators';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { User } from '../models/user.model';
+import { CommonService } from './common.service';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,8 @@ export class LoginService {
     private currentUserSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
     private currentUser$: Observable<User>;
 
-    constructor(private _http: HttpClient) {
+    constructor(private _http: HttpClient,
+        private _commonService: CommonService) {
         this.currentUser$ = this.currentUserSubject.asObservable();
     }
 
@@ -56,12 +58,24 @@ export class LoginService {
         return this._http.get(ApiConfig.userDetailsURL)
             .pipe(map((res: any) => {
                 const user = res && res.data;
-                localStorage.setItem('storeId', user.storeId);
+                // TODO: Update hard coded value
+                localStorage.setItem('storeId', '1');
+                this._commonService.getStoreId$.next('1');
                 // login successful if there's a jwt token in the response
                 if (user) {
                     this._mapUser(user);
                 }
                 return user;
+            }));
+    }
+
+    /**
+     * Get All stores
+     */
+    public getStores() {
+        return this._http.get(ApiConfig.storesByAdminURL)
+            .pipe(map((res) => {
+                console.log('res  ', res);
             }));
     }
 

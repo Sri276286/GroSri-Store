@@ -54,13 +54,18 @@ export class ItemModalPage implements OnInit {
     }
 
     loadProduct(item) {
-        // this.productForm.get('productName').setValue(item.productName);
-        // this.productForm.get('brandName').setValue(item.brandName);
-        // this.productForm.get('itemShortDescription').setValue(item.itemShortDescription);
-        // this.productForm.get('productCategory').setValue(item.productCategory);
-        // this.productForm.get('productSubCategory').setValue(item.productSubCategory);
-        // this.productForm.get('storeInventoryProductUnit').setValue(item.storeInventoryProductUnit);
-        this.productForm.setValue(item);
+        console.log('item ', item);
+        const weights = item.storeInventoryProductUnit;
+        // empty form array
+        if (weights && weights.length) {
+            this.w.removeAt(0);
+        }
+        // use patchValue instead of setValue
+        this.productForm.patchValue(item);
+        // add form array values in a loop
+        weights.forEach(element => {
+            this.w.push(this.fb.group(element));
+        });
     }
 
     // convenience getters for easy access to form fields
@@ -84,6 +89,7 @@ export class ItemModalPage implements OnInit {
     }
 
     addWeight() {
+        // console.log('w controls ', this.w.controls);
         this.w.push(this.weightForm());
     }
 

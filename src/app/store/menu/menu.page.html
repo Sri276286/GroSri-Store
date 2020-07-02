@@ -10,7 +10,8 @@
       <ion-title>Menu</ion-title>
       <ion-icon
         name="search-outline"
-        size="large"
+        style="font-size: 24px;"
+        class="ion-padding-end"
         (click)="searchDialog()"
       ></ion-icon>
     </div>
@@ -40,19 +41,24 @@
       <ion-label
         ><span style="font-weight: 600; font-size: 20px;">{{product.key}}</span>
       </ion-label>
-      <ion-icon name="add" (click)="addItemOrSubcateg(product.key)"></ion-icon>
+      <ion-icon
+        name="add"
+        class="ion-padding-end"
+        (click)="addItemOrSubcateg(product.key)"
+      ></ion-icon>
       <ion-icon
         name="create"
+        class="ion-padding-end"
         (click)="editCategoryAlert('category', product.key)"
       ></ion-icon>
       <ion-icon
-        name="arrow-down-circle"
+        name="chevron-down-outline"
         size="small"
         (click)="product.expand = true"
         *ngIf="!product.expand"
       ></ion-icon>
       <ion-icon
-        name="arrow-up-circle"
+        name="chevron-up-outline"
         size="small"
         (click)="product.expand = false"
         *ngIf="product.expand"
@@ -62,19 +68,24 @@
       <ion-list *ngFor="let subprod of product.value | keyvalue">
         <ion-item>
           <ion-label>{{subprod.key}}</ion-label>
-          <ion-icon name="add" (click)="addItem(product.key, subprod.key)"></ion-icon>
+          <ion-icon
+            name="add"
+            class="ion-padding-end"
+            (click)="addItem(product.key, subprod.key)"
+          ></ion-icon>
           <ion-icon
             name="create"
+            class="ion-padding-end"
             (click)="editCategoryAlert('subcategory', subprod.key)"
           ></ion-icon>
           <ion-icon
-            name="arrow-down-circle"
+            name="chevron-down-outline"
             size="small"
             (click)="subprod.expand = true"
             *ngIf="!subprod.expand"
           ></ion-icon>
           <ion-icon
-            name="arrow-up-circle"
+            name="chevron-up-outline"
             size="small"
             (click)="subprod.expand = false"
             *ngIf="subprod.expand"

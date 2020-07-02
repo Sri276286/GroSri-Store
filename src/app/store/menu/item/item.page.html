@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
     <div style="display: flex; justify-content: space-between;">
-      <ion-label class="ion-padding-start">{{item ? 'Update Product': 'Add Product'}}</ion-label>
+      <ion-label class="ion-padding-start"
+        >{{item ? 'Update Product': 'Add Product'}}</ion-label
+      >
       <ion-icon name="close" size="large" (click)="closeModal()"></ion-icon>
     </div>
   </ion-toolbar>
@@ -15,33 +17,35 @@
     [formGroup]="productForm"
     (ngSubmit)="productForm.valid && submitProduct()"
   >
-  <span style="color: red;" *ngIf="productForm.invalid">* Please fill all mandatory fields</span>
+    <span style="color: red;" *ngIf="productForm.invalid"
+      >* Please fill all mandatory fields</span
+    >
     <ion-grid>
       <ion-row>
         <ion-col size="6">
+          <ion-label>
+            Product Name
+          </ion-label>
           <ion-item>
-            <ion-input
-              placeholder="Product Name"
-              formControlName="productName"
-            ></ion-input>
+            <ion-input formControlName="productName"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="6">
+          <ion-label>
+            Brand Name
+          </ion-label>
           <ion-item>
-            <ion-input
-              placeholder="Brand Name"
-              formControlName="brandName"
-            ></ion-input>
+            <ion-input formControlName="brandName"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
+          <ion-label>
+            Description goes here...
+          </ion-label>
           <ion-item>
-            <ion-textarea
-              placeholder="Description goes here..."
-              formControlName="itemShortDescription"
-            ></ion-textarea>
+            <ion-textarea formControlName="itemShortDescription"></ion-textarea>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -76,28 +80,20 @@
           </ion-row>
           <ion-row>
             <ion-col>
+              <ion-label>
+                Weight
+              </ion-label>
               <ion-item>
-                <ion-input
-                  placeholder="Quantity"
-                  formControlName="available_quantity"
-                ></ion-input>
+                <ion-input type="number" formControlName="weight"></ion-input>
               </ion-item>
             </ion-col>
             <ion-col>
-              <ion-item>
-                <ion-input
-                  type="number"
-                  placeholder="Weight"
-                  formControlName="weight"
-                  formControlName="weight"
-                ></ion-input>
-              </ion-item>
-            </ion-col>
-            <ion-col>
+              <ion-label>
+                Select Unit
+              </ion-label>
               <ion-item>
                 <ion-select
                   interface="popover"
-                  placeholder="Select Unit"
                   formControlName="unit"
                   value="kg"
                   class="myCustomSelect"
@@ -111,23 +107,36 @@
           </ion-row>
           <ion-row>
             <ion-col>
+              <ion-label>
+                Quantity
+              </ion-label>
               <ion-item>
-                <ion-input placeholder="MRP" formControlName="mrp"></ion-input>
+                <ion-input formControlName="available_quantity"></ion-input>
               </ion-item>
             </ion-col>
             <ion-col>
+              <ion-label>
+                MRP
+              </ion-label>
               <ion-item>
-                <ion-input
-                  placeholder="Price"
-                  formControlName="price"
-                ></ion-input>
+                <ion-input formControlName="mrp"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-label>
+                Price
+              </ion-label>
+              <ion-item>
+                <ion-input formControlName="price"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
         </div>
       </div>
       <div class="ion-padding">
-        <ion-button type="submit" expand="block">{{item ? 'Update Product': 'Add Product'}}</ion-button>
+        <ion-button type="submit" expand="block"
+          >{{item ? 'Update Product': 'Add Product'}}</ion-button
+        >
       </div>
     </ion-grid>
   </form>

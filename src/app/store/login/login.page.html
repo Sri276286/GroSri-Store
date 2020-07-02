@@ -9,6 +9,9 @@
          <span style="color:red;">Password must contain a digit, an uppercase, a lowercase,a special
             character and between 6-15 characters.</span>
         </div>
+        <div class="ion-text-center">
+          <ion-icon name="person-circle" class="login-main-icon"></ion-icon>
+        </div>
         <div class="ion-padding">
           <ion-item>
             <ion-icon name="person-circle" slot="start"></ion-icon>
@@ -36,9 +39,10 @@
       </form>
       <div class="ion-padding">
         Not Registered?
-        <span class="register_text" [routerLink]="['/store-validate']"
+        <!-- <span class="register_text" [routerLink]="['/store-validate']"
           >Create an account</span
-        >
+        > -->
+        <ion-button fill="outline" [routerLink]="['/store-validate']">Create an account</ion-button>
       </div>
     </ion-col>
   </ion-row>

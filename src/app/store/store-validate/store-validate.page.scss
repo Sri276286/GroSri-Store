@@ -4,7 +4,7 @@ $height100: 100%;
 ion-grid {
   width: 100%;
   height: $height100;
-  background: #dfdfdf;
+  background: #3880ff !important;
 }
 
 ion-row {
@@ -32,4 +32,9 @@ ion-button {
 .store_register_text {
   font-size: 600;
   color: blue;
+}
+
+.login-main-icon {
+  font-size: 68px;
+  color: #3880ff;
 }

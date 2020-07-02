@@ -3,14 +3,18 @@
     <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
       <div class="ion-padding">
         Register your store?
-        <span class="store_register_text" [routerLink]="['/store-register']"
+        <!-- <span class="store_register_text" [routerLink]="['/store-register']"
           >Click Here</span
-        >
+        > -->
+        <ion-button fill="outline" [routerLink]="['/store-register']">Click Here</ion-button>
       </div>
       <form
         [formGroup]="storeValidateForm"
         (ngSubmit)="storeValidateForm.valid && submit(storeValidateForm.valid)"
       >
+        <div class="ion-text-center">
+          <ion-icon name="business-outline" class="login-main-icon"></ion-icon>
+        </div>
         <div class="ion-padding">
           <ion-item>
             <ion-icon name="at-circle-outline" slot="start"></ion-icon>
