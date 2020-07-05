@@ -25,10 +25,15 @@ export class MenuService {
     getMenu() {
         const storeId = this._commonService.getStoreId();
         return this._http.get(`${ApiConfig.storeMenuURL}/${storeId}`)
-            // return this._http.get(this.menuURL)
-            .pipe(tap((res: any) => {
-                this.mapProducts(res && res.productsByCategory);
-            }));
+            .pipe(map((res: any) => {
+                if (res && res.productsByCategory) {
+                    res.productsByCategory = this.flattenIfNoSubCategs(res.productsByCategory);
+                }
+                return res;
+            }),
+                tap((res: any) => {
+                    this.mapProducts(res && res.productsByCategory);
+                }));
     }
 
     getOutOfStocks() {
@@ -36,7 +41,8 @@ export class MenuService {
     }
 
     addCategory(category) {
-        return this._http.post(`/addCategory`, { category });
+        const storeId = this._commonService.getStoreId();
+        return this._http.post(ApiConfig.addCategoryURL, { category, storeId });
     }
 
     addSubCategory(subcategory) {
@@ -81,13 +87,40 @@ export class MenuService {
         });
     }
 
+    /**
+     * API to get entire product list from menu
+     * @param itemsRes
+     */
     private mapProducts(itemsRes: any) {
+        console.log('ee ', itemsRes);
         this.productsList = [];
         for (let category in itemsRes) {
-            for (let subcategory in itemsRes[category]) {
-                this.productsList = [...this.productsList, ...itemsRes[category][subcategory]];
+            if (Array.isArray(itemsRes[category])) {
+                this.productsList = [...this.productsList, ...itemsRes[category]];
+            } else {
+                for (let subcategory in itemsRes[category]) {
+                    this.productsList = [...this.productsList, ...itemsRes[category][subcategory]];
+                }
             }
         }
+        console.log('products list ', this.productsList);
+    }
+
+    /**
+     * Flatten items to categories that don't have sub category (Main)
+     */
+    private flattenIfNoSubCategs(res: any) {
+        for (let category in res) {
+            const dataByCategory = res[category];
+            for (let subcategory in dataByCategory) {
+                const dataBySubCategory = dataByCategory[subcategory];
+                if (subcategory === 'Main') {
+                    res[category] = dataBySubCategory;
+                }
+            }
+        }
+        console.log('final res ', res);
+        return res;
     }
 
     /**

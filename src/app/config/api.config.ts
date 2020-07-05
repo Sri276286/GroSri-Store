@@ -14,6 +14,8 @@ export class ApiConfig {
     static newOrderURL: string = `${ApiConfig.baseUrl}/stores/new`;
     static orderStatusURL: string = `${ApiConfig.baseUrl}/orders`; // PUT
     static orderDetailsURL: string = `${ApiConfig.baseUrl}/orders`; // GET
+
+    static addCategoryURL: string = `${ApiConfig.baseUrl}/store/admin/create/category`; // POST
     static addProductURL: string = `${ApiConfig.baseUrl}/store/admin/create/product`; // POST
     static updateProductURL: string = `${ApiConfig.baseUrl}/store/admin/update/product`; // PUT
     static deleteProductURL: string = `${ApiConfig.baseUrl}/store/admin/delete/product`; // GET

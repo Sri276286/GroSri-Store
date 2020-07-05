@@ -39,7 +39,9 @@
   <ion-list *ngFor="let product of products | keyvalue">
     <ion-item>
       <ion-label
-        ><span style="font-weight: 600; font-size: 20px;">{{product.key}}</span>
+        ><span style="font-weight: 600; font-size: 20px;"
+          >{{product.key | titlecase}}</span
+        >
       </ion-label>
       <ion-icon
         name="add"
@@ -67,7 +69,7 @@
     <ng-container *ngIf="!product.value.length && !product.expand">
       <ion-list *ngFor="let subprod of product.value | keyvalue">
         <ion-item>
-          <ion-label>{{subprod.key}}</ion-label>
+          <ion-label>{{subprod.key | titlecase}}</ion-label>
           <ion-icon
             name="add"
             class="ion-padding-end"
@@ -92,19 +94,11 @@
           ></ion-icon>
         </ion-item>
         <ng-container *ngIf="!subprod.expand">
-          <!-- <ng-container
-            [ngTemplateOutlet]="menuList"
-            [ngTemplateOutletContext]="{items: subprod.value}"
-          ></ng-container> -->
           <product-list [products]="subprod.value"></product-list>
         </ng-container>
       </ion-list>
     </ng-container>
     <ng-container *ngIf="product.value.length && !product.expand">
-      <!-- <ng-container
-        [ngTemplateOutlet]="menuList"
-        [ngTemplateOutletContext]="{items: product.value}"
-      ></ng-container> -->
       <product-list [products]="product.value"></product-list>
     </ng-container>
   </ion-list>
