@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ModalController, LoadingController, ToastController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -11,7 +11,8 @@ export class CommonService {
     pastOrders = [];
     getStoreId$: BehaviorSubject<string> = new BehaviorSubject<string>('');
     constructor(private _modalCtrl: ModalController,
-        private _loadingCtrl: LoadingController) {
+        private _loadingCtrl: LoadingController,
+        private _toastCtrl: ToastController) {
 
     }
 
@@ -40,6 +41,15 @@ export class CommonService {
         const store_id = localStorage.getItem('storeId');
         return store_id ? store_id : '';
     }
+
+    async presentToast(message: string, position?: "top" | "bottom" | "middle") {
+        const toast = await this._toastCtrl.create({
+          message: message,
+          duration: 4000,
+          position: position
+        });
+        toast.present();
+      }
 
     async presentModal(component, properties?: any, cssClass?: string) {
         const modal = await this._modalCtrl.create({

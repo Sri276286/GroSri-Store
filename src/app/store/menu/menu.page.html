@@ -66,6 +66,21 @@
         *ngIf="product.expand"
       ></ion-icon>
     </ion-item>
+    <ion-card *ngIf="product.value.length === 0" color="light">
+      <ion-card-content>
+        <div>
+          <ion-label style="font-size: 18px;"
+            >Start adding a sub category or products for {{product.key}}
+            category</ion-label
+          >
+        </div>
+        <div class="ion-text-center">
+          <ion-button (click)="addItemOrSubcateg(product.key)"
+            >Add</ion-button
+          >
+        </div>
+      </ion-card-content>
+    </ion-card>
     <ng-container *ngIf="!product.value.length && !product.expand">
       <ion-list *ngFor="let subprod of product.value | keyvalue">
         <ion-item>
@@ -93,7 +108,22 @@
             *ngIf="subprod.expand"
           ></ion-icon>
         </ion-item>
-        <ng-container *ngIf="!subprod.expand">
+        <ion-card *ngIf="subprod.value.length === 0" color="light">
+          <ion-card-content>
+            <div>
+              <ion-label style="font-size: 18px;"
+                >Start adding products for
+                {{product.key}}/{{subprod.key}}</ion-label
+              >
+            </div>
+            <div class="ion-text-center">
+              <ion-button (click)="addItem(product.key, subprod.key)"
+                >Add</ion-button
+              >
+            </div>
+          </ion-card-content>
+        </ion-card>
+        <ng-container *ngIf="!subprod.expand && subprod.value.length!==0">
           <product-list [products]="subprod.value"></product-list>
         </ng-container>
       </ion-list>

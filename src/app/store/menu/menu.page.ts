@@ -44,6 +44,7 @@ export class MenuPage {
     }
 
     private getMenuItems() {
+        console.log('sub cate addedd');
         this._menuService.getMenu().subscribe((resp: any) => {
             console.log(resp);
             this.products = resp.productsByCategory;
@@ -86,6 +87,7 @@ export class MenuPage {
         }, () => {
             this.newCategory = '';
             this.canAddCategory = false;
+            this._commonService.presentToast('Failed to add a category. Please try after some time.');
         });
     }
 

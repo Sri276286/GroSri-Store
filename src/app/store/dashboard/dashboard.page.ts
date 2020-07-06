@@ -15,11 +15,15 @@ export class DashboardPage implements OnInit {
   constructor(private _dashboardService: DashboardService,
     private toastCtrl: ToastController,
     private menuCtrl: MenuController,
-    private _commonService: CommonService) { }
+    private _commonService: CommonService) { 
+      console.log('abc');
+    }
 
   ngOnInit() {
+    console.log('on init');
     this._commonService.presentLoading('Getting orders. Please wait...');
     setTimeout(() => {
+      console.log('heeeee');
       this.getDashBoardDetails();
     }, 500);
     // Look for new orders every 15 minutes.

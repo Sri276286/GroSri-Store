@@ -14,7 +14,7 @@ export class ItemDialogPage {
     }
 
     addSubCategory(category: string) {
-        this._menuService.addSubCategory(this.newSubCategory).subscribe(() => {
+        this._menuService.addSubCategory(category, this.newSubCategory).subscribe(() => {
             this.newSubCategory = '';
             this._menuService.addSubCategory$.next(true);
             this.closeModal();

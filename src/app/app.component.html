@@ -39,7 +39,10 @@
             <ion-item>Contact Us</ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle>
-            <ion-item (click)="logout()">Logout</ion-item>
+            <ion-item (click)="logout()">
+              <ion-icon name="power-outline" slot="start"></ion-icon
+              ><ion-label>Logout</ion-label>
+            </ion-item>
           </ion-menu-toggle>
         </ion-list>
       </ion-content>

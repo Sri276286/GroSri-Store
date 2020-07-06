@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
         console.log('forrr ', this.loginForm.value);
         if (isvalid) {
             this.loginService.login(this.loginForm.value).subscribe(() => {
-                this._router.navigate(['/home']);
+                this._router.navigate(['/home/dashboard']);
             });
         }
     }

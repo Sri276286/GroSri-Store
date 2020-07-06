@@ -16,6 +16,9 @@ export class MenuService {
     addProduct$: BehaviorSubject<string> = new BehaviorSubject<string>('');
     productHandleSuccess$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private productsList = [];
+    private menu: any = {
+        productsByCategory: {}
+    };
     constructor(private _http: HttpClient,
         private _commonService: CommonService) { }
 
@@ -26,14 +29,16 @@ export class MenuService {
         const storeId = this._commonService.getStoreId();
         return this._http.get(`${ApiConfig.storeMenuURL}/${storeId}`)
             .pipe(map((res: any) => {
-                if (res && res.productsByCategory) {
-                    res.productsByCategory = this.flattenIfNoSubCategs(res.productsByCategory);
+                console.log('res ', res);
+                if (res && res.data) {
+                    console.log('memu ', this.mapMenu(res.data));
+                    this.menu.productsByCategory = this.mapMenu(res.data);
+                    console.log('all products list ', this.productsList);
+                    res = this.menu;
                 }
                 return res;
-            }),
-                tap((res: any) => {
-                    this.mapProducts(res && res.productsByCategory);
-                }));
+            })
+            );
     }
 
     getOutOfStocks() {
@@ -45,8 +50,9 @@ export class MenuService {
         return this._http.post(ApiConfig.addCategoryURL, { category, storeId });
     }
 
-    addSubCategory(subcategory) {
-        return this._http.post(`/addSubCategory`, { subcategory });
+    addSubCategory(category, subcategory) {
+        const storeId = this._commonService.getStoreId();
+        return this._http.post(ApiConfig.addCategoryURL, { category, subcategory, storeId });
     }
 
     updateCategory(category) {
@@ -88,40 +94,66 @@ export class MenuService {
     }
 
     /**
+     * Map Menu
+     * @param res 
+     */
+    private mapMenu(data: any[]) {
+        this.productsList = [];
+        return data.reduce((acc, curr) => {
+            if (curr.subcategory !== 'Main') {
+                let sub = {};
+                sub[curr.subcategory] = curr.storeInventoryProducts;
+                // maintain products list
+                this.productsList = [...this.productsList, ...curr.storeInventoryProducts];
+                if (acc[curr.category]) {
+                    acc[curr.category][curr.subcategory] = sub[curr.subcategory];
+                } else {
+                    acc[curr.category] = sub;
+                }
+            } else {
+                acc[curr.category] = curr.storeInventoryProducts;
+                // maintain products list
+                this.productsList = [...this.productsList, ...curr.storeInventoryProducts];
+            }
+            return acc;
+        }, {});
+    }
+
+    /**
      * API to get entire product list from menu
      * @param itemsRes
      */
-    private mapProducts(itemsRes: any) {
-        console.log('ee ', itemsRes);
-        this.productsList = [];
-        for (let category in itemsRes) {
-            if (Array.isArray(itemsRes[category])) {
-                this.productsList = [...this.productsList, ...itemsRes[category]];
-            } else {
-                for (let subcategory in itemsRes[category]) {
-                    this.productsList = [...this.productsList, ...itemsRes[category][subcategory]];
-                }
-            }
-        }
-        console.log('products list ', this.productsList);
-    }
+    // private mapProducts(itemsRes: any) {
+    //     console.log('ee ', itemsRes);
+    //     this.productsList = [];
+    //     for (let category in itemsRes) {
+    //         if (Array.isArray(itemsRes[category])) {
+    //             this.productsList = [...this.productsList, ...itemsRes[category]];
+    //         } else {
+    //             for (let subcategory in itemsRes[category]) {
+    //                 this.productsList = [...this.productsList, ...itemsRes[category][subcategory]];
+    //             }
+    //         }
+    //     }
+    //     console.log('products list ', this.productsList);
+    // }
 
     /**
      * Flatten items to categories that don't have sub category (Main)
      */
-    private flattenIfNoSubCategs(res: any) {
-        for (let category in res) {
-            const dataByCategory = res[category];
-            for (let subcategory in dataByCategory) {
-                const dataBySubCategory = dataByCategory[subcategory];
-                if (subcategory === 'Main') {
-                    res[category] = dataBySubCategory;
-                }
-            }
-        }
-        console.log('final res ', res);
-        return res;
-    }
+    // private flattenIfNoSubCategs(res: any) {
+    //     for (let category in res) {
+    //         const dataByCategory = res[category];
+    //         for (let subcategory in dataByCategory) {
+    //             const dataBySubCategory = dataByCategory[subcategory];
+    //             if (subcategory === 'Main') {
+    //                 res[category] = dataBySubCategory;
+    //             }
+    //         }
+    //     }
+    //     console.log('final res ', res);
+    //     return res;
+    // }
 
     /**
      * Search store for any product

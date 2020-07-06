@@ -30,7 +30,7 @@ export class ItemModalPage implements OnInit {
             itemShortDescription: '',
             storeId: this._commonService.getStoreId(),
             productCategory: this.category,
-            productSubCategory: this.subCategory,
+            productSubCategory: this.subCategory || 'Main',
             storeInventoryProductUnit: this.fb.array([this.weightForm()]),
             available_quantity: '',
             itemLongDescription: '',
@@ -106,14 +106,14 @@ export class ItemModalPage implements OnInit {
                 this._menuService.updateProduct(this.productForm.value).subscribe(() => {
                     this._menuService.productHandleSuccess$.next(true);
                 }, () => {
-                    // TODO: Show a failed toast message
+                    this._commonService.presentToast('Failed to update product');
                     this.closeModal();
                 });
             } else {
                 this._menuService.addProduct(this.productForm.value).subscribe(() => {
                     this._menuService.productHandleSuccess$.next(true);
                 }, () => {
-                    // TODO: Show a failed toast message
+                    this._commonService.presentToast('Failed to add a product');
                     this.closeModal();
                 });
             }
