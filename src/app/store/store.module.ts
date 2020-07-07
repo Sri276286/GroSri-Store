@@ -22,6 +22,8 @@ import { UserModalPage } from './profile/user-modal/user-modal.page';
 import { StoreValidatePage } from './store-validate/store-validate.page';
 import { StoreRegisterPage } from './store-register/store-register.page';
 import { StoreSettingsPage } from './profile/store-settings/store-settings.page';
+import { StoreAccountPage } from './profile/store-account/store-account.page';
+import { EditStorePage } from './profile/store-account/edit-store/edit-store.page';
 
 @NgModule({
     imports: [
@@ -50,7 +52,9 @@ import { StoreSettingsPage } from './profile/store-settings/store-settings.page'
         UserModalPage,
         StoreValidatePage,
         StoreRegisterPage,
-        StoreSettingsPage
+        StoreSettingsPage,
+        StoreAccountPage,
+        EditStorePage
     ]
 })
 export class StoreModule {

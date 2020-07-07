@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-icon
+          name="chevron-back-outline"
+          size="large"
+          (click)="modalCtrl.dismiss()"
+        ></ion-icon>
+        <span class="span-text">Update Store</span>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form
+    [formGroup]="storeForm"
+    (ngSubmit)="storeForm.valid && updateStore(storeForm.valid)"
+  >
+    <div
+      class="ion-padding"
+      *ngIf="storeForm.get('mobileNumber').errors?.pattern"
+    >
+      <span style="color: red;"
+        >Phone number must be a valid 10 digit number.</span
+      >
+    </div>
+    <div class="ion-padding">
+      <ion-item>
+        <ion-label slot="start">Store Name *</ion-label>
+        <ion-input type="text" formControlName="storeName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">Category *</ion-label>
+        <ion-input type="text" formControlName="storeCategory"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">Owner/Admin Name *</ion-label>
+        <ion-input type="text" formControlName="ownerName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">
+          Mobile Number *
+        </ion-label>
+        <ion-input type="text" formControlName="mobileNumber"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">Flat No.</ion-label>
+        <ion-input type="text" formControlName="flatNo"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">Street</ion-label>
+        <ion-input type="text" formControlName="street"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">Area</ion-label>
+        <ion-input type="text" formControlName="area"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">Landmark</ion-label>
+        <ion-input type="text" formControlName="landmark"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="ion-padding">
+      <ion-button
+        type="submit"
+        size="large"
+        expand="block"
+        [disabled]="storeForm.invalid"
+        >Update</ion-button
+      >
+    </div>
+  </form>
+</ion-content>

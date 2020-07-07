@@ -7,9 +7,10 @@ export class ApiConfig {
     static logoutURL: string = `${ApiConfig.baseUrl}/auth/logout`; // GET
     static tokenURL: string = `${ApiConfig.baseUrl}/auth/sso/login`; // GET
 
+    static storeUpdateURL: string = `${ApiConfig.baseUrl}/store/admin/update/store`;
     static storesByAdminURL: string = `${ApiConfig.baseUrl}/stores/admin/admin/getAll`; // GET
-    static storeDetailsURL: string = `${ApiConfig.baseUrl}/stores/findStoreByStoreId`; // GET
-    static storeValidateURL: string = `${ApiConfig.baseUrl}/stores/validate`; // GET
+    static storeDetailsURL: string = `${ApiConfig.baseUrl}/stores`; // GET
+    static storeValidateURL: string = `${ApiConfig.baseUrl}/stores/verify`; // GET
     static adminStoresURL: string = `${ApiConfig.baseUrl}/stores/findStoreByAdminId`; // GET
     static newOrderURL: string = `${ApiConfig.baseUrl}/stores/new`;
     static orderStatusURL: string = `${ApiConfig.baseUrl}/orders`; // PUT

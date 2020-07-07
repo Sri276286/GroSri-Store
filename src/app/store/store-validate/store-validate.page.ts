@@ -24,7 +24,7 @@ export class StoreValidatePage {
     submit(isvalid: boolean) {
         console.log('is valid ', isvalid);
         if (isvalid) {
-            this.storeService.validateStore(this.storeValidateForm.value).subscribe(() => {
+            this.storeService.validateStore(this.storeValidateForm.value.storeId).subscribe(() => {
                 this._router.navigate(['/register']);
             });
         }

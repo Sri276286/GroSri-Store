@@ -5,6 +5,7 @@ import { LoginService } from '../services/login.service';
 import { UserModalPage } from './user-modal/user-modal.page';
 import { CommonService } from '../services/common.service';
 import { StoreSettingsPage } from './store-settings/store-settings.page';
+import { StoreAccountPage } from './store-account/store-account.page';
 
 @Component({
     templateUrl: 'profile.page.html',
@@ -36,6 +37,10 @@ export class ProfilePage {
 
     storeSettingsModal() {
         this._commonService.presentModal(StoreSettingsPage);
+    }
+
+    storeAccountModal() {
+        this._commonService.presentModal(StoreAccountPage);
     }
 
     logout() {

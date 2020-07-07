@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-icon
+          name="chevron-back-outline"
+          size="large"
+          (click)="modalCtrl.dismiss()"
+        ></ion-icon>
+        <span class="span-text">Store Information</span>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="storeProfile">
+    <ion-item>
+      <ion-label>
+        Store ID : {{storeProfile.storeAdminId}}
+      </ion-label>
+      <ion-label class="ion-text-end">
+        <ion-icon name="create-outline" style="font-size:24px;" (click)="editStore()"></ion-icon>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3" *ngIf="storeProfile.storeImgUrl">
+            <ion-img [src]="storeProfile.storeImgUrl"></ion-img>
+          </ion-col>
+          <ion-col [size]="storeProfile.storeImgUrl ? 9: 12">
+            <div>{{storeProfile.storeName | titlecase}}</div>
+            <div>{{storeProfile.area}}</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid>
+        <ion-label>Address:</ion-label>
+        <ion-row>
+          <ion-col size="2">
+            <ion-icon name="location-outline"></ion-icon>
+          </ion-col>
+          <ion-col size="6">
+            <div>{{storeProfile.flatNo}}, {{storeProfile.street}}</div>
+            <div>{{storeProfile.area}}</div>
+            <div>{{storeProfile.city}} - {{storeProfile.pincode}}</div>
+          </ion-col>
+          <ion-col size="4"></ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Active Since :
+      </ion-label>
+    </ion-item>
+  </ng-container>
+</ion-content>
