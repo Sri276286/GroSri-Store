@@ -11,21 +11,29 @@ import { CommonService } from '../services/common.service';
 })
 export class DashboardPage implements OnInit {
 
+  isOnline: boolean = false;
   public currentOrders: StoreOrder[] = [];
   constructor(private _dashboardService: DashboardService,
     private toastCtrl: ToastController,
     private menuCtrl: MenuController,
-    private _commonService: CommonService) { 
-      console.log('abc');
-    }
+    private _commonService: CommonService) {
+    console.log('abc');
+  }
 
   ngOnInit() {
+    if (navigator.onLine) {
+      this.isOnline = true;
+    }
     console.log('on init');
     this._commonService.presentLoading('Getting orders. Please wait...');
-    setTimeout(() => {
-      console.log('heeeee');
-      this.getDashBoardDetails();
-    }, 500);
+    this.getDashboardDetails();
+    // if store id present, then get orders
+    this._commonService.getStoreId$.subscribe((storeId: any) => {
+      console.log('store id ', storeId);
+      if (storeId) {
+        this.getDashboardDetails(storeId);
+      }
+    });
     // Look for new orders every 15 minutes.
     setInterval(() => {
       this.newOrder();
@@ -38,8 +46,8 @@ export class DashboardPage implements OnInit {
     });
   }
 
-  private getDashBoardDetails() {
-    this._dashboardService.getCurrentOrders().subscribe((res: StoreOrder[]) => {
+  private getDashboardDetails(id?: any) {
+    this._dashboardService.getCurrentOrders(id).subscribe((res: StoreOrder[]) => {
       this.currentOrders = res;
       console.log('resss ', res);
     });
@@ -63,7 +71,7 @@ export class DashboardPage implements OnInit {
   updateOrderStatus(order, reject?: boolean) {
     console.log('order ', order);
     this._dashboardService.updateOrderStatus(order.id, order.orderStatus, reject).subscribe(() => {
-      this.getDashBoardDetails();
+      this.getDashboardDetails();
     });
   }
 
@@ -88,7 +96,7 @@ export class DashboardPage implements OnInit {
           side: 'end',
           icon: 'refresh',
           handler: () => {
-            this.getDashBoardDetails();
+            this.getDashboardDetails();
           }
         },
         {

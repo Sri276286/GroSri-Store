@@ -2,7 +2,7 @@ export class ApiConfig {
     static baseUrl: string = 'http://aruceryapiphase1-env.eba-xvk4wrjm.us-east-2.elasticbeanstalk.com';
     static storeDashboardURL: string = `${ApiConfig.baseUrl}/orders/stores`; // GET
     static registerURL: string = `${ApiConfig.baseUrl}/auth/store/signup`; // POST
-    static storeRegisterURL: string = `${ApiConfig.baseUrl}/auth/store/register`; // POST
+    static storeRegisterURL: string = `${ApiConfig.baseUrl}/store/admin/create/store`; // POST
     static loginURL: string = `${ApiConfig.baseUrl}/auth/login`; // POST
     static logoutURL: string = `${ApiConfig.baseUrl}/auth/logout`; // GET
     static tokenURL: string = `${ApiConfig.baseUrl}/auth/sso/login`; // GET
@@ -22,6 +22,7 @@ export class ApiConfig {
     static deleteProductURL: string = `${ApiConfig.baseUrl}/store/admin/delete/product`; // GET
     static storeMenuURL: string = `${ApiConfig.baseUrl}/stores/getProductsByStoreId`; // GET
 
+    static storeAdminURL: string = `${ApiConfig.baseUrl}/store/admin/getuser`; // GET
     static userDetailsURL: string = `${ApiConfig.baseUrl}/user/me`; // GET, POST
     static userUpdateURL: string = `${ApiConfig.baseUrl}/user/update`; // POST
 

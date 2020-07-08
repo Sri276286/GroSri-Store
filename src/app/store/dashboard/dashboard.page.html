@@ -15,10 +15,17 @@
     ></ion-refresher-content>
   </ion-refresher>
   <ion-item>
-    <ion-label>
-      Current Orders
+    <ion-label *ngIf="isOnline">
+      You are online 
     </ion-label>
+    <ion-label *ngIf="!isOnline">
+      Offline. Turn on internet. 
+    </ion-label>
+    <ion-toggle color="success" [(ngModel)]="isOnline"></ion-toggle>
   </ion-item>
+  <div *ngIf="!currentOrders.length" class="noOrdersDiv">
+    <span class="noOrdersLabel">No orders at the moment. Refresh after sometime or we will notify you.</span>
+  </div>
   <ion-card *ngFor="let order of currentOrders">
     <ion-card-content>
       <ion-card-title>

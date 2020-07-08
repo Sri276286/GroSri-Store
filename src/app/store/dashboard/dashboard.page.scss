@@ -1,8 +1,17 @@
 .span-content {
- font-weight: 400;
- font-size: 16px;
+  font-weight: 400;
+  font-size: 16px;
 }
 
-// .main-menu {
-//     z-index: 999;
-// }
+.noOrdersDiv {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.noOrdersLabel {
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+}

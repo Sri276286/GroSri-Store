@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonConstants } from '../constants/common.constants';
 import { Router } from '@angular/router';
 import { StoreService } from '../services/store.service';
+import { CommonService } from '../services/common.service';
 
 @Component({
     selector: 'gro-store-register',
@@ -14,14 +15,15 @@ export class StoreRegisterPage {
 
     constructor(private fb: FormBuilder,
         private storeService: StoreService,
-        private _router: Router) {
+        private _router: Router,
+        private _commonService: CommonService) {
         this.storeRegisterForm = this.fb.group({
-            name: ["", [Validators.required, Validators.minLength(6)]],
-            owner_name: [""],
+            storeName: ["", [Validators.required, Validators.minLength(6)]],
+            ownerName: [""],
             area: [""],
             city: "",
-            mobileNumber: ["", [Validators.required, Validators.pattern(CommonConstants.phoneNumber)]],
-            store_type: [""]
+            mobileNumber: [""],
+            storeCategory: [""]
         });
     }
 
@@ -35,6 +37,7 @@ export class StoreRegisterPage {
         if (isValid) {
             this.storeService.storeRegister(this.storeRegisterForm.value).subscribe(() => {
                 console.log('store registered');
+                this._commonService.presentToast('Thank you for registering with us. We will contact you shortly', 'middle');
                 this._router.navigate(['/login']);
             });
         }

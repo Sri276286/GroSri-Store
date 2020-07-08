@@ -98,6 +98,7 @@ export class MenuService {
      * @param res 
      */
     private mapMenu(data: any[]) {
+        console.log('data ', data);
         this.productsList = [];
         return data.reduce((acc, curr) => {
             if (curr.subcategory !== 'Main') {

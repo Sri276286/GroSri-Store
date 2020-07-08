@@ -19,7 +19,7 @@ export class ProfilePage {
         this._loginService.getCurrentUser().subscribe((user) => {
             console.log('current user ', user);
             if (!user) {
-                this._loginService.getUser().subscribe((user) => {
+                this._loginService.getAdminDetails().subscribe((user) => {
                     this.user = user;
                 })
             } else {

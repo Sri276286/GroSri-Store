@@ -46,21 +46,22 @@ export class LoginService {
             .pipe(tap((resp: any) => {
                 localStorage.setItem('auth_token', resp.accessToken);
                 localStorage.setItem('session_active', 'true');
-                // get user details once login is successful
-                this.getUser().subscribe();
+                // get store admin details with store id
+                this.getAdminDetails().subscribe();
             }));
     }
 
     /**
      * Get user details
     */
-    public getUser() {
-        return this._http.get(ApiConfig.userDetailsURL)
+    public getAdminDetails() {
+        return this._http.get(ApiConfig.storeAdminURL)
             .pipe(map((res: any) => {
-                const user = res && res.data;
-                // TODO: Update hard coded value
-                localStorage.setItem('storeId', '1');
-                this._commonService.getStoreId$.next('1');
+                console.log('res Admin ', res);
+                const storeId = res && res.data && res.data.id;
+                localStorage.setItem('storeId', storeId);
+                this._commonService.getStoreId$.next(storeId);
+                const user = res && res.data && res.data.user;
                 // login successful if there's a jwt token in the response
                 if (user) {
                     this._mapUser(user);

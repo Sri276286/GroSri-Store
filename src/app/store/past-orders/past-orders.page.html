@@ -8,15 +8,17 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-label>
-      Past Orders
-    </ion-label>
-  </ion-item>
+  <div *ngIf="!pastOrders.length" class="noOrdersDiv">
+    <span class="noOrdersLabel"
+      >Your first order will happen soon. Cheers!</span
+    >
+  </div>
   <ion-card *ngFor="let order of pastOrders">
     <ion-card-content>
       <ion-card-title color="primary"
-        ><ion-chip color="primary">{{order.orderStatus | titlecase}}</ion-chip></ion-card-title
+        ><ion-chip color="primary"
+          >{{order.orderStatus | titlecase}}</ion-chip
+        ></ion-card-title
       >
       <ion-grid>
         <ion-row>
