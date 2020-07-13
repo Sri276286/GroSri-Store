@@ -57,10 +57,11 @@
         <div style="border: 1px solid grey;" [formGroupName]="i">
           <ion-row>
             <ion-col size="6">
-              <ion-item>
-                <!-- <ion-label>
+              <ion-button (click)="addPhoto(i)">Add Photo</ion-button>
+              <!-- <ion-item>
+                 <ion-label>
                           Upload Image
-                      </ion-label> -->
+                      </ion-label> 
                 <div>
                   <label for="files" class="files-label">Select Image</label>
                   <input
@@ -70,12 +71,23 @@
                     (change)="selectFile($event)"
                   />
                 </div>
-                <!-- <ion-button>
+                 <ion-button>
                 <input type="file" (change)="selectFile($event)" placeholder="Add Image"/><ion-icon
                   name="cloud-upload"
                 ></ion-icon
-              ></ion-button> -->
-              </ion-item>
+              ></ion-button>
+              </ion-item> -->
+            </ion-col>
+            <ion-col *ngIf="photo">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-img
+                      src="{{ photo.base64 ? photo.base64 : photo.webviewPath }}"
+                    ></ion-img>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
             </ion-col>
           </ion-row>
           <ion-row>

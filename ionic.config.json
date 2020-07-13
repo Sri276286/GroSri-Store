@@ -1,5 +1,7 @@
 {
   "name": "grosri-store",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

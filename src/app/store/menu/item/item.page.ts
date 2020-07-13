@@ -3,6 +3,7 @@ import { MenuService } from '../../services/menu.service';
 import { ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
+import { PhotoService } from '../../services/photo.service';
 
 @Component({
     templateUrl: 'item.page.html',
@@ -15,11 +16,12 @@ export class ItemModalPage implements OnInit {
     @Input('subCategory') subCategory;
     productForm: FormGroup;
     weights: FormArray;
+    photo;
     constructor(private _menuService: MenuService,
         private _commonService: CommonService,
         private modalCtrl: ModalController,
-        private fb: FormBuilder) {
-
+        private fb: FormBuilder,
+        private photoService: PhotoService) {
     }
 
     ngOnInit() {
@@ -51,6 +53,26 @@ export class ItemModalPage implements OnInit {
             this.subCategory = this.item.productSubCategory;
             this.loadProduct(this.item);
         }
+    }
+
+    /**
+     * Add a photo
+     * @param number
+     */
+    addPhoto(number) {
+        this.photoService.addNewToGallery(number).then(() => {
+            this.loadPhoto(number);
+        });
+    }
+
+    /**
+     * Load a photo
+     * @param number
+     */
+    loadPhoto(number) {
+        this.photoService.loadSaved(number).then((photo) => {
+            this.photo = photo;
+        });
     }
 
     loadProduct(item) {

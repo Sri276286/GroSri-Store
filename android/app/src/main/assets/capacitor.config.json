@@ -1,0 +1,13 @@
+{
+  "appId": "com.grosri.store",
+  "appName": "grosri-store",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 5
+    }
+  },
+  "cordova": {}
+}
