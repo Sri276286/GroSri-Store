@@ -34,12 +34,12 @@ export class StoreRegisterPage {
     onSubmit(isValid: boolean) {
         console.log('is valid ', isValid);
         console.log('form ', this.storeRegisterForm);
-        if (isValid) {
-            this.storeService.storeRegister(this.storeRegisterForm.value).subscribe(() => {
-                console.log('store registered');
-                this._commonService.presentToast('Thank you for registering with us. We will contact you shortly', 'middle');
-                this._router.navigate(['/login']);
-            });
-        }
+        // if (isValid) {
+        //     this.storeService.storeRegister(this.storeRegisterForm.value).subscribe(() => {
+        //         console.log('store registered');
+        //         this._commonService.presentToast('Thank you for registering with us. We will contact you shortly', 'middle');
+        //         this._router.navigate(['/login']);
+        //     });
+        // }
     }
 }

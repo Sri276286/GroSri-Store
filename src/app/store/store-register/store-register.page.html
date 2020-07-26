@@ -62,11 +62,19 @@
           </ion-item>
           <ion-item>
             <ion-icon name="apps" slot="start"></ion-icon>
-            <ion-input
-              type="text"
-              placeholder="Category Ex.Grocery"
-              formControlName="storeCategory"
-            ></ion-input>
+            <ion-label>Business Category</ion-label>
+            <ion-select multiple="true" cancelText="Cancel" okText="Ok" formControlName="storeCategory">
+              <ion-select-option value="groceryStaples">Grocery & Staples</ion-select-option>
+              <ion-select-option value="personalCare">Personal Care</ion-select-option>
+              <ion-select-option value="fruitsVegetables">Fruits & Vegetables</ion-select-option>
+              <ion-select-option value="householdItems">Household Items</ion-select-option>
+              <ion-select-option value="homeKitchen">Home & Kitchen</ion-select-option>
+              <ion-select-option value="breakfastDairy">Breakfast & Dairy</ion-select-option>
+              <ion-select-option value="snacks">Snacks & Branded Foods</ion-select-option>
+              <ion-select-option value="beverages">Beverages</ion-select-option>
+              <ion-select-option value="babyCare">Baby Care</ion-select-option>
+              <ion-select-option value="biscuits">Biscuits & Chocolates</ion-select-option>
+            </ion-select>
           </ion-item>
         </div>
 

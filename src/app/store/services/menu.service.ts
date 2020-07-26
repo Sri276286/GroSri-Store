@@ -27,7 +27,7 @@ export class MenuService {
      */
     getMenu() {
         const storeId = this._commonService.getStoreId();
-        return this._http.get(`${ApiConfig.storeMenuURL}/${storeId}`)
+        return this._http.get(`${ApiConfig.storeMenuURL}/1`)
             .pipe(map((res: any) => {
                 console.log('res ', res);
                 if (res && res.data) {
