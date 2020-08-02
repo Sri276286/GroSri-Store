@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MenuService } from '../../services/menu.service';
 import { ModalController } from '@ionic/angular';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
 import { PhotoService } from '../../services/photo.service';
 
@@ -45,7 +45,8 @@ export class ItemModalPage implements OnInit {
             storeStoreName: '',
             unit: '',
             weight: '',
-            storeInventoryProductUnitId: ''
+            storeInventoryProductUnitId: '',
+            customUnit:''
         });
         console.log('item => ', this.item);
         if (this.item) {
@@ -54,6 +55,9 @@ export class ItemModalPage implements OnInit {
             this.loadProduct(this.item);
         }
     }
+
+   
+      
 
     /**
      * Add a photo
@@ -101,14 +105,49 @@ export class ItemModalPage implements OnInit {
             storeInventoryProductId: '',
             available_quantity: ['', Validators.required],
             weight: ['', Validators.required],
+            customUnit: '',
+            isDefault:false,
             unit: ['kg', Validators.required],
             mrp: [''],
             price: ['', Validators.required],
             max_quantity: '',
             quantity: ''
 
-        });
+        },
+        {validators : this.customWeightRequiredValidator});
+        
     }
+    setThisWeightAsDefault(formGroupIndex : number){
+        this.w.controls.forEach((control,index)=>{
+            
+            //control.patchValue({isDefault : false});
+            // console.log("index : "  + formGroupIndex);
+            
+            if(index !== formGroupIndex){  
+                control.patchValue({isDefault : false});
+            }
+            else{
+                control.value.isDefault = true;
+            }
+
+            console.log(control.value);
+
+            
+        })
+    }
+
+    customWeightRequiredValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+        const unit = control.get('unit');
+        const customWeight = control.get('customWeight');
+        let customWeightIsRequired = false;
+        if(unit.value === "custom" && !customWeight.value){
+            customWeightIsRequired = true;
+        }
+
+        console.log("Custom Weight is required : " + customWeightIsRequired);
+      
+        return customWeightIsRequired ? {customWeightRequired : { customWeightRequired : true}} : null;
+      };
 
     addWeight() {
         // console.log('w controls ', this.w.controls);
