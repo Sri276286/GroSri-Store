@@ -34,14 +34,11 @@
                 <span>
                   {{item.weight}}{{item.unit}}
                 </span>
-                <span>
-                  MRP:Rs.
+                <span class="span-mrp"  *ngIf="item.mrp">
+                  &#x20B9;{{item.mrp}}
                 </span>
-                <span class="span-mrp">
-                  {{item.mrp}}
-                </span>
-                <span class="span-content">
-                  {{item.price}}
+                <span class="span-price" *ngIf="item.price">
+                  &#x20B9;{{item.price}}
                 </span>
               </div>
             </ion-button>
@@ -50,14 +47,11 @@
                 {{item.weight}} {{item.unit}}
               </ion-col>
               <ion-col size="8">
-                <span>
-                  MRP:Rs.
+                <span class="span-mrp" *ngIf="item.mrp">
+                  &#x20B9;{{item.mrp}}
                 </span>
-                <span class="span-mrp">
-                  {{item.mrp}}
-                </span>
-                <span class="span-content">
-                  {{item.price}}
+                <span class="span-price" *ngIf="item.price">
+                  &#x20B9;{{item.price}}
                 </span>
               </ion-col>
             </ion-row>
@@ -73,19 +67,21 @@
                 {{item.itemShortDescription}}
               </ion-col>
               <ion-col size="4">
-                <!-- <div style="display: flex; justify-content: space-between;"> -->
+                <div style="display: flex; justify-content: space-between;">
                   <ion-icon
                     name="create"
                     class="ion-padding-end"
                     style="font-size: 28px;"
                     (click)="updateItem(item)"
+                    *ngIf="menuEdit"
                   ></ion-icon>
                   <ion-icon
                     name="trash"
                     style="font-size: 28px;"
                     (click)="deleteItemAlert(item)"
+                    *ngIf="menuEdit"
                   ></ion-icon>
-                <!-- </div> -->
+                </div>
               </ion-col>
             </ion-row>
           </ion-col>

@@ -17,122 +17,142 @@
     </div>
   </ion-toolbar>
 </ion-header>
-<ion-toolbar>
-  <ion-segment
-    value="all"
-    color="primary"
-    (ionChange)="menuSegmentChange($event)"
-  >
-    <ion-segment-button value="all">All</ion-segment-button>
-    <ion-segment-button value="out_of_stock">Out of Stock</ion-segment-button>
-  </ion-segment>
-</ion-toolbar>
-<ion-content *ngIf="!showOutOfStockItems">
-  <ion-button fill="outline" (click)="canAddCateg()">Add Category</ion-button>
-  <ion-item *ngIf="canAddCategory">
-    <ion-input
-      placeholder="Enter a category"
-      [(ngModel)]="newCategory"
-    ></ion-input>
-    <ion-icon name="add" (click)="addCategory()"></ion-icon>
-  </ion-item>
-  <ion-list *ngFor="let product of products | keyvalue">
-    <ion-item>
-      <ion-label
-        ><span style="font-weight: 600; font-size: 20px;"
-          >{{product.key | titlecase}}</span
+<ion-content>
+  <ion-toolbar>
+    <ion-segment
+      value="all"
+      color="primary"
+      (ionChange)="menuSegmentChange($event)"
+    >
+      <ion-segment-button value="all">All</ion-segment-button>
+      <ion-segment-button value="out_of_stock">Out of Stock</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <ion-content *ngIf="!showOutOfStockItems">
+    <ion-row>
+      <ion-col>
+        <ion-button fill="outline" (click)="canAddCateg()" *ngIf="menuEdit"
+          >Add Category</ion-button
         >
-      </ion-label>
-      <ion-icon
-        name="add"
-        class="ion-padding-end"
-        (click)="addItemOrSubcateg(product.key)"
-      ></ion-icon>
-      <ion-icon
-        name="create"
-        class="ion-padding-end"
-        (click)="editCategoryAlert('category', product.key)"
-      ></ion-icon>
-      <ion-icon
-        name="chevron-down-outline"
-        size="small"
-        (click)="product.expand = true"
-        *ngIf="!product.expand"
-      ></ion-icon>
-      <ion-icon
-        name="chevron-up-outline"
-        size="small"
-        (click)="product.expand = false"
-        *ngIf="product.expand"
-      ></ion-icon>
-    </ion-item>
-    <ion-card *ngIf="product.value.length === 0" color="light">
-      <ion-card-content>
-        <div>
-          <ion-label style="font-size: 18px;"
-            >Start adding a sub category or products for {{product.key}}
-            category</ion-label
-          >
-        </div>
-        <div class="ion-text-center">
-          <ion-button (click)="addItemOrSubcateg(product.key)"
-            >Add</ion-button
-          >
-        </div>
-      </ion-card-content>
-    </ion-card>
-    <ng-container *ngIf="!product.value.length && !product.expand">
-      <ion-list *ngFor="let subprod of product.value | keyvalue">
+      </ion-col>
+      <ion-col>
         <ion-item>
-          <ion-label>{{subprod.key | titlecase}}</ion-label>
-          <ion-icon
-            name="add"
-            class="ion-padding-end"
-            (click)="addItem(product.key, subprod.key)"
-          ></ion-icon>
-          <ion-icon
-            name="create"
-            class="ion-padding-end"
-            (click)="editCategoryAlert('subcategory', subprod.key)"
-          ></ion-icon>
-          <ion-icon
-            name="chevron-down-outline"
-            size="small"
-            (click)="subprod.expand = true"
-            *ngIf="!subprod.expand"
-          ></ion-icon>
-          <ion-icon
-            name="chevron-up-outline"
-            size="small"
-            (click)="subprod.expand = false"
-            *ngIf="subprod.expand"
-          ></ion-icon>
+          <ion-label>
+            Enable Edit
+          </ion-label>
+          <ion-toggle color="success" [(ngModel)]="menuEdit"></ion-toggle>
         </ion-item>
-        <ion-card *ngIf="subprod.value.length === 0" color="light">
-          <ion-card-content>
-            <div>
-              <ion-label style="font-size: 18px;"
-                >Start adding products for
-                {{product.key}}/{{subprod.key}}</ion-label
-              >
-            </div>
-            <div class="ion-text-center">
-              <ion-button (click)="addItem(product.key, subprod.key)"
-                >Add</ion-button
-              >
-            </div>
-          </ion-card-content>
-        </ion-card>
-        <ng-container *ngIf="!subprod.expand && subprod.value.length!==0">
-          <product-list [products]="subprod.value"></product-list>
-        </ng-container>
-      </ion-list>
-    </ng-container>
-    <ng-container *ngIf="product.value.length && !product.expand">
-      <product-list [products]="product.value"></product-list>
-    </ng-container>
-  </ion-list>
-</ion-content>
-<ion-content *ngIf="showOutOfStockItems">
-  <product-list [products]="outOfStockProducts"></product-list>
+      </ion-col>
+    </ion-row>
+    <ion-item *ngIf="canAddCategory && menuEdit">
+      <ion-input
+        placeholder="Enter a category"
+        [(ngModel)]="newCategory"
+      ></ion-input>
+      <ion-icon name="add" (click)="addCategory()"></ion-icon>
+    </ion-item>
+    <ion-list *ngFor="let product of products | keyvalue">
+      <ion-item>
+        <ion-label
+          ><span style="font-weight: 600; font-size: 20px;"
+            >{{product.key | titlecase}}</span
+          >
+        </ion-label>
+        <ion-icon
+          name="add"
+          class="ion-padding-end"
+          (click)="addItemOrSubcateg(product.key)"
+          *ngIf="menuEdit"
+        ></ion-icon>
+        <ion-icon
+          name="create"
+          class="ion-padding-end"
+          (click)="editCategoryAlert('category', product.key)"
+          *ngIf="menuEdit"
+        ></ion-icon>
+        <ion-icon
+          name="chevron-down-outline"
+          size="small"
+          (click)="product.expand = true"
+          *ngIf="!product.expand"
+        ></ion-icon>
+        <ion-icon
+          name="chevron-up-outline"
+          size="small"
+          (click)="product.expand = false"
+          *ngIf="product.expand"
+        ></ion-icon>
+      </ion-item>
+      <ion-card *ngIf="product.value.length === 0" color="light">
+        <ion-card-content>
+          <div>
+            <ion-label style="font-size: 18px;"
+              >Start adding a sub category or products for {{product.key}}
+              category</ion-label
+            >
+          </div>
+          <div class="ion-text-center" *ngIf="menuEdit">
+            <ion-button (click)="addItemOrSubcateg(product.key)"
+              >Add</ion-button
+            >
+          </div>
+        </ion-card-content>
+      </ion-card>
+      <ng-container *ngIf="!product.value.length && !product.expand">
+        <ion-list *ngFor="let subprod of product.value | keyvalue">
+          <ion-item>
+            <ion-label>{{subprod.key | titlecase}}</ion-label>
+            <ion-icon
+              name="add"
+              class="ion-padding-end"
+              (click)="addItem(product.key, subprod.key)"
+              *ngIf="menuEdit"
+            ></ion-icon>
+            <ion-icon
+              name="create"
+              class="ion-padding-end"
+              (click)="editCategoryAlert('subcategory', subprod.key)"
+              *ngIf="menuEdit"
+            ></ion-icon>
+            <ion-icon
+              name="chevron-down-outline"
+              size="small"
+              (click)="subprod.expand = true"
+              *ngIf="!subprod.expand"
+            ></ion-icon>
+            <ion-icon
+              name="chevron-up-outline"
+              size="small"
+              (click)="subprod.expand = false"
+              *ngIf="subprod.expand"
+            ></ion-icon>
+          </ion-item>
+          <ion-card *ngIf="subprod.value.length === 0" color="light">
+            <ion-card-content>
+              <div>
+                <ion-label style="font-size: 18px;"
+                  >Start adding products for
+                  {{product.key}}/{{subprod.key}}</ion-label
+                >
+              </div>
+              <div class="ion-text-center" *ngIf="menuEdit">
+                <ion-button (click)="addItem(product.key, subprod.key)"
+                  >Add</ion-button
+                >
+              </div>
+            </ion-card-content>
+          </ion-card>
+          <ng-container *ngIf="!subprod.expand && subprod.value.length!==0">
+            <product-list [products]="subprod.value" [menuEdit]="menuEdit"></product-list>
+          </ng-container>
+        </ion-list>
+      </ng-container>
+      <ng-container *ngIf="product.value.length && !product.expand">
+        <product-list [products]="product.value" [menuEdit]="menuEdit"></product-list>
+      </ng-container>
+    </ion-list>
+  </ion-content>
+  <ion-content *ngIf="showOutOfStockItems">
+    <product-list [products]="outOfStockProducts"></product-list>
+  </ion-content>
 </ion-content>

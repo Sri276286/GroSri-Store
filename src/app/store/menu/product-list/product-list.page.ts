@@ -12,6 +12,7 @@ import { MenuService } from '../../services/menu.service';
 })
 export class ProductListPage {
     @Input('products') products;
+    @Input() menuEdit = false;
 
     constructor(private modalCtrl: ModalController,
         private alertCtrl: AlertController,

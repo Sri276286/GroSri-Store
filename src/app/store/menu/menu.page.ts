@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MenuService } from '../services/menu.service';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ItemModalPage } from './item/item.page';
@@ -17,6 +17,7 @@ export class MenuPage {
     newCategory = '';
     showOutOfStockItems = false;
     outOfStockProducts = [];
+    menuEdit = false;
 
     constructor(private _menuService: MenuService,
         private alertCtrl: AlertController,
