@@ -28,7 +28,7 @@
         "price": 98.0,
         "weight": 25.0,
         "unit": "kg",
-        "isDefault" : true,
+        "default" : true,
         "customUnit": ""
       },
       {
@@ -40,7 +40,7 @@
         "price": 980.0,
         "weight": 50.0,
         "unit": "kg",
-        "isDefault" : false,
+        "default" : false,
         "customUnit":""
       },
       {
@@ -52,7 +52,7 @@
         "price": 1480.0,
         "weight": 100.0,
         "unit": "kg",
-        "isDefault" : false,
+        "default" : false,
         "customUnit":""
       }
     ],

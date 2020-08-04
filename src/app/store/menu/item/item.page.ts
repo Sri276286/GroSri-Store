@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MenuService } from '../../services/menu.service';
 import { ModalController } from '@ionic/angular';
-import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors, FormControl } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
 import { PhotoService } from '../../services/photo.service';
 
@@ -81,17 +81,43 @@ export class ItemModalPage implements OnInit {
 
     loadProduct(item) {
         console.log('item ', item);
-        const weights = item.storeInventoryProductUnit;
+        const discountObservableFields = ["mrp","price"];
+        let weights = item.storeInventoryProductUnit;
         // empty form array
         if (weights && weights.length) {
             this.w.removeAt(0);
         }
+        
         // use patchValue instead of setValue
         this.productForm.patchValue(item);
         // add form array values in a loop
         weights.forEach(element => {
             this.w.push(this.fb.group(element));
         });
+        this.w.controls.forEach(form => {
+
+            //update values on initial form load
+            this.updateDiscounts(form);
+            //disable discount fields
+            this.disableControlInForm(form , "discount");
+            discountObservableFields.forEach((field)=>{
+                form.get(field).valueChanges.subscribe(()=>{
+                    this.updateDiscounts(form)
+                })
+            })
+        })
+        
+    }
+
+    private updateDiscounts(form : AbstractControl){
+        const mrp = form.get("mrp").value;
+        const price = form.get("price").value;
+        let discountValue = mrp !== 0 ? (mrp - price)/mrp * 100 : 0;//prevent divide by zero
+        discountValue = Math.round(discountValue * 100) / 100;
+        form.patchValue({discount : discountValue});
+    }
+    private disableControlInForm(form : AbstractControl, fieldName : string){
+        form.get(fieldName).disable();
     }
 
     // convenience getters for easy access to form fields
@@ -106,15 +132,16 @@ export class ItemModalPage implements OnInit {
             available_quantity: ['', Validators.required],
             weight: ['', Validators.required],
             customUnit: '',
-            isDefault:false,
+            default:false,
             unit: ['kg', Validators.required],
             mrp: [''],
             price: ['', Validators.required],
             max_quantity: '',
-            quantity: ''
+            quantity: '',
+            discount: [{value : '', disabled : true}]
 
         },
-        {validators : this.customWeightRequiredValidator});
+        );
         
     }
     setThisWeightAsDefault(formGroupIndex : number){
@@ -124,10 +151,10 @@ export class ItemModalPage implements OnInit {
             // console.log("index : "  + formGroupIndex);
             
             if(index !== formGroupIndex){  
-                control.patchValue({isDefault : false});
+                control.patchValue({default : false});
             }
             else{
-                control.value.isDefault = true;
+                control.value.default = true;
             }
 
             console.log(control.value);
@@ -135,19 +162,6 @@ export class ItemModalPage implements OnInit {
             
         })
     }
-
-    customWeightRequiredValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-        const unit = control.get('unit');
-        const customWeight = control.get('customWeight');
-        let customWeightIsRequired = false;
-        if(unit.value === "custom" && !customWeight.value){
-            customWeightIsRequired = true;
-        }
-
-        console.log("Custom Weight is required : " + customWeightIsRequired);
-      
-        return customWeightIsRequired ? {customWeightRequired : { customWeightRequired : true}} : null;
-      };
 
     addWeight() {
         // console.log('w controls ', this.w.controls);

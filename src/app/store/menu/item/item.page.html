@@ -59,8 +59,8 @@
             <ion-col>
               <!-- [checked]="item.get('isDefault').value"  -->
               <ion-checkbox 
-                            [checked]="item.get('isDefault').value" 
-                            formControlName="isDefault"
+                            [checked]="item.get('default')? item.get('default')?.value : false" 
+                            formControlName="default"
                             (click)="setThisWeightAsDefault(i)"
                             ></ion-checkbox>
               <ion-label> Set this as Default</ion-label>
@@ -159,6 +159,14 @@
               </ion-label>
               <ion-item>
                 <ion-input formControlName="price"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-label>
+                Discount %
+              </ion-label>
+              <ion-item>
+                <ion-input formControlName="discount"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
