@@ -105,7 +105,7 @@ export class ItemModalPage implements OnInit {
                     this.updateDiscounts(form)
                 })
             })
-        })
+        });
         
     }
 
